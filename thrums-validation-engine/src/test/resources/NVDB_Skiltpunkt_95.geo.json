@@ -1,0 +1,497 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "objekttypenavn": "Skiltpunkt_95",
+        "PTEMA": "0999",
+        "datafangstdato": "2013-11-26T23:00:00.000Z",
+        "kvalitet": {
+          "målemetode": 96,
+          "nøyaktighet": 5,
+          "synbarhet": 0,
+          "målemetodeHøyde": 96,
+          "nøyaktighetHøyde": 5
+        },
+        "AvstandFraDekkekant_1884": "0,30",
+        "Oppsettingsutstyr_1876": "2868",
+        "AntallOppsettingsutstyr_1877": "1",
+        "Fundamentering_1671": "2435"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.391780132804493,
+          63.430602994329256
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 2,
+      "properties": {
+        "objekttypenavn": "Skiltpunkt_95",
+        "PTEMA": "0999",
+        "datafangstdato": "2013-11-26T23:00:00.000Z",
+        "kvalitet": {
+          "målemetode": 96,
+          "nøyaktighet": 5,
+          "synbarhet": 0,
+          "målemetodeHøyde": 96,
+          "nøyaktighetHøyde": 5
+        },
+        "AvstandFraDekkekant_1884": "0,30",
+        "Oppsettingsutstyr_1876": "2868",
+        "AntallOppsettingsutstyr_1877": "1",
+        "Fundamentering_1671": "2435"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.391780132804493,
+          63.430602994329256
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 3,
+      "properties": {
+        "objekttypenavn": "Skiltpunkt_95",
+        "PTEMA": "0999",
+        "datafangstdato": "2013-11-26T23:00:00.000Z",
+        "kvalitet": {
+          "målemetode": 96,
+          "nøyaktighet": 5,
+          "synbarhet": 0,
+          "målemetodeHøyde": 96,
+          "nøyaktighetHøyde": 5
+        },
+        "AvstandFraDekkekant_1884": "0,30",
+        "Oppsettingsutstyr_1876": "2868",
+        "AntallOppsettingsutstyr_1877": "1",
+        "Fundamentering_1671": "2435"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.391780132804493,
+          63.430602994329256
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 4,
+      "properties": {
+        "objekttypenavn": "Skiltpunkt_95",
+        "PTEMA": "0999",
+        "datafangstdato": "2013-11-26T23:00:00.000Z",
+        "kvalitet": {
+          "målemetode": 96,
+          "nøyaktighet": 5,
+          "synbarhet": 0,
+          "målemetodeHøyde": 96,
+          "nøyaktighetHøyde": 5
+        },
+        "AvstandFraDekkekant_1884": "0,30",
+        "Oppsettingsutstyr_1876": "2868",
+        "AntallOppsettingsutstyr_1877": "1",
+        "Fundamentering_1671": "2435"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.390502125424957,
+          63.43060393723287
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5,
+      "properties": {
+        "objekttypenavn": "Skiltpunkt_95",
+        "PTEMA": "0999",
+        "datafangstdato": "2014-04-08T22:00:00.000Z",
+        "kvalitet": {
+          "målemetode": 96,
+          "nøyaktighet": 5,
+          "synbarhet": 0,
+          "målemetodeHøyde": 96,
+          "nøyaktighetHøyde": 5
+        },
+        "AvstandFraDekkekant_1884": "1,30",
+        "Oppsettingsutstyr_1876": "2868",
+        "AntallOppsettingsutstyr_1877": "1",
+        "Fundamentering_1671": "2435"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.389743636928912,
+          63.43052711260065
+        ],
+        "crs":{
+          "type": "name",
+          "properties": {
+            "name":"EPSG:4326"
+          }
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 6,
+      "properties": {
+        "objekttypenavn": "Skiltpunkt_95",
+        "PTEMA": "0999",
+        "datafangstdato": "2014-04-08T22:00:00.000Z",
+        "kvalitet": {
+          "målemetode": 96,
+          "nøyaktighet": 5,
+          "synbarhet": 0,
+          "målemetodeHøyde": 96,
+          "nøyaktighetHøyde": 5
+        },
+        "AvstandFraDekkekant_1884": "3,25",
+        "Oppsettingsutstyr_1876": "2868",
+        "AntallOppsettingsutstyr_1877": "1",
+        "Fundamentering_1671": "2435"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.39102050925487,
+          63.43051523637717
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 7,
+      "properties": {
+        "objekttypenavn": "Skiltpunkt_95",
+        "PTEMA": "0999",
+        "datafangstdato": "2014-04-08T22:00:00.000Z",
+        "kvalitet": {
+          "målemetode": 96,
+          "nøyaktighet": 5,
+          "synbarhet": 0,
+          "målemetodeHøyde": 96,
+          "nøyaktighetHøyde": 5
+        },
+        "AvstandFraDekkekant_1884": "2,70",
+        "Oppsettingsutstyr_1876": "3266",
+        "Fundamentering_1671": "3474"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.391213335295994,
+          63.43051991328886
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 8,
+      "properties": {
+        "objekttypenavn": "Skiltpunkt_95",
+        "PTEMA": "0999",
+        "datafangstdato": "2014-04-08T22:00:00.000Z",
+        "kvalitet": {
+          "målemetode": 96,
+          "nøyaktighet": 5,
+          "synbarhet": 0,
+          "målemetodeHøyde": 96,
+          "nøyaktighetHøyde": 5
+        },
+        "AvstandFraDekkekant_1884": "2,80",
+        "Oppsettingsutstyr_1876": "3266",
+        "AntallOppsettingsutstyr_1877": "1",
+        "Fundamentering_1671": "3474"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.391207636852101,
+          63.430687556697706
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 9,
+      "properties": {
+        "objekttypenavn": "Skiltpunkt_95",
+        "PTEMA": "0999",
+        "datafangstdato": "2014-04-08T22:00:00.000Z",
+        "kvalitet": {
+          "målemetode": 96,
+          "nøyaktighet": 5,
+          "synbarhet": 0,
+          "målemetodeHøyde": 96,
+          "nøyaktighetHøyde": 5
+        },
+        "AvstandFraDekkekant_1884": "3,50",
+        "Oppsettingsutstyr_1876": "2868",
+        "AntallOppsettingsutstyr_1877": "1",
+        "Fundamentering_1671": "3474"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.390537685053362,
+          63.430700805032146
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 10,
+      "properties": {
+        "objekttypenavn": "Skiltpunkt_95",
+        "PTEMA": "0999",
+        "datafangstdato": "2014-04-08T22:00:00.000Z",
+        "kvalitet": {
+          "målemetode": 96,
+          "nøyaktighet": 5,
+          "synbarhet": 0,
+          "målemetodeHøyde": 96,
+          "nøyaktighetHøyde": 5
+        },
+        "AvstandFraDekkekant_1884": "1,20",
+        "Oppsettingsutstyr_1876": "2868",
+        "AntallOppsettingsutstyr_1877": "1"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.39016945434986,
+          63.430521627273244
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 11,
+      "properties": {
+        "objekttypenavn": "Skiltpunkt_95",
+        "PTEMA": "0999",
+        "datafangstdato": "2014-04-08T22:00:00.000Z",
+        "kvalitet": {
+          "målemetode": 96,
+          "nøyaktighet": 5,
+          "synbarhet": 0,
+          "målemetodeHøyde": 96,
+          "nøyaktighetHøyde": 5
+        },
+        "AvstandFraDekkekant_1884": "1,00",
+        "Oppsettingsutstyr_1876": "2868",
+        "AntallOppsettingsutstyr_1877": "1",
+        "Fundamentering_1671": "2435"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.390235341358654,
+          63.430537144127925
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 12,
+      "properties": {
+        "objekttypenavn": "Skiltpunkt_95",
+        "PTEMA": "0999",
+        "datafangstdato": "2014-04-08T22:00:00.000Z",
+        "kvalitet": {
+          "målemetode": 96,
+          "nøyaktighet": 5,
+          "synbarhet": 0,
+          "målemetodeHøyde": 96,
+          "nøyaktighetHøyde": 5
+        },
+        "AvstandFraDekkekant_1884": "1,60",
+        "Oppsettingsutstyr_1876": "2868",
+        "AntallOppsettingsutstyr_1877": "1",
+        "Fundamentering_1671": "3474"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.390485639682872,
+          63.43084681728843
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 13,
+      "properties": {
+        "objekttypenavn": "Skiltpunkt_95",
+        "PTEMA": "0999",
+        "datafangstdato": "2014-04-08T22:00:00.000Z",
+        "kvalitet": {
+          "målemetode": 96,
+          "nøyaktighet": 5,
+          "synbarhet": 0,
+          "målemetodeHøyde": 96,
+          "nøyaktighetHøyde": 5
+        },
+        "AvstandFraDekkekant_1884": "2,00",
+        "Fundamentering_1671": "3474"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.390418795884795,
+          63.43099351198364
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 14,
+      "properties": {
+        "objekttypenavn": "Skiltpunkt_95",
+        "PTEMA": "0999",
+        "datafangstdato": "2014-04-08T22:00:00.000Z",
+        "kvalitet": {
+          "målemetode": 96,
+          "nøyaktighet": 5,
+          "synbarhet": 0,
+          "målemetodeHøyde": 96,
+          "nøyaktighetHøyde": 5
+        },
+        "AvstandFraDekkekant_1884": "2,50",
+        "Oppsettingsutstyr_1876": "3266",
+        "Fundamentering_1671": "3474"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.39219249147211,
+          63.43113782927129
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 15,
+      "properties": {
+        "objekttypenavn": "Skiltpunkt_95",
+        "PTEMA": "0999",
+        "datafangstdato": "2014-04-08T22:00:00.000Z",
+        "kvalitet": {
+          "målemetode": 96,
+          "nøyaktighet": 5,
+          "synbarhet": 0,
+          "målemetodeHøyde": 96,
+          "nøyaktighetHøyde": 5
+        },
+        "AvstandFraDekkekant_1884": "3,00",
+        "Oppsettingsutstyr_1876": "2967",
+        "AntallOppsettingsutstyr_1877": "1",
+        "Fundamentering_1671": "2964"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.39177526207777,
+          63.431353552262536
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 16,
+      "properties": {
+        "objekttypenavn": "Skiltpunkt_95",
+        "PTEMA": "0999",
+        "datafangstdato": "2014-04-08T22:00:00.000Z",
+        "kvalitet": {
+          "målemetode": 96,
+          "nøyaktighet": 5,
+          "synbarhet": 0,
+          "målemetodeHøyde": 96,
+          "nøyaktighetHøyde": 5
+        },
+        "AvstandFraDekkekant_1884": "2,60",
+        "Oppsettingsutstyr_1876": "3266",
+        "Fundamentering_1671": "3474"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.3918477904878,
+          63.431022607380214
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 17,
+      "properties": {
+        "objekttypenavn": "Skiltpunkt_95",
+        "PTEMA": "0999",
+        "datafangstdato": "2014-04-08T22:00:00.000Z",
+        "kvalitet": {
+          "målemetode": 96,
+          "nøyaktighet": 5,
+          "synbarhet": 0,
+          "målemetodeHøyde": 96,
+          "nøyaktighetHøyde": 5
+        },
+        "AvstandFraDekkekant_1884": "4,00",
+        "Oppsettingsutstyr_1876": "2868",
+        "AntallOppsettingsutstyr_1877": "1",
+        "Fundamentering_1671": "2435"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.392555329224017,
+          63.43065639682527
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 18,
+      "properties": {
+        "objekttypenavn": "Skiltpunkt_95",
+        "PTEMA": "0999",
+        "datafangstdato": "2014-04-08T22:00:00.000Z",
+        "kvalitet": {
+          "målemetode": 96,
+          "nøyaktighet": 5,
+          "synbarhet": 0,
+          "målemetodeHøyde": 96,
+          "nøyaktighetHøyde": 5
+        },
+        "AvstandFraDekkekant_1884": "1,20",
+        "Oppsettingsutstyr_1876": "2868",
+        "AntallOppsettingsutstyr_1877": "1",
+        "Fundamentering_1671": "2435"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.392557379574516,
+          63.43054587827139
+        ]
+      }
+    }
+  ],
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "EPSG:32632"
+    }
+  }
+}

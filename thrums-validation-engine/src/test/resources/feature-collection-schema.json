@@ -1,0 +1,212 @@
+{
+  "required": [
+    "type",
+    "features"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "type": {"enum": ["FeatureCollection"]},
+    "crs": {"$ref": "#/definitions/crs"},
+    "features": {
+      "items": {"$ref": "#/definitions/feature"}
+    }
+  },
+  "definitions": {
+    "feature": {
+      "required": [
+        "type",
+        "id",
+        "properties",
+        "geometry"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {"enum": ["Feature"]},
+        "id": {
+          "type": "integer"
+        },
+        "properties": {
+          "additionalProperties": false,
+          "properties": {
+            "objekttypenavn": {"pattern": "^[A-Z\u00C0-\u00D6\u00D8-\u00DEa-z\u00DF-\u00F6\u00F8-\u00FF]+_[0-9]+$"},
+            "PTEMA": {"pattern": "^[0-9]{1,4}$"},
+            "datafangstdato": {
+              "format": "date-time"
+            },
+            "kvalitet": {
+              "$ref": "#/definitions/kvalitet"
+            },
+            "medium": {"type": "integer"},
+            "kommune": {"type": "integer"},
+            "høydereferanse": {"type": "string"}
+          },
+          "patternProperties": {
+            "^[A-Z\u00C0-\u00D6\u00D8-\u00DEa-z\u00DF-\u00F6\u00F8-\u00FF]+_[0-9]+$": {"type": "string"}
+          }
+        },
+        "geometry": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/multilinestring"
+            },
+            {
+              "$ref": "#/definitions/linestring"
+            },
+            {
+              "$ref": "#/definitions/multipoint"
+            },
+            {
+              "$ref": "#/definitions/point"
+            },
+            {
+              "$ref": "#/definitions/multipolygon"
+            },
+            {
+              "$ref": "#/definitions/polygon"
+            }
+          ]
+        },
+        "crs": {"$ref": "#/definitions/crs"}
+      }
+    },
+    "position": {
+      "description": "A single position",
+      "type": "array",
+      "minItems": 2,
+      "items": [
+        {"type": "number"},
+        {"type": "number"}
+      ],
+      "additionalItems": false
+    },
+    "point": {
+      "required": [
+        "type",
+        "coordinates"
+      ],
+      "properties": {
+        "type": {"enum": ["Point"]},
+        "coordinates": {"$ref": "#/definitions/position"},
+        "crs": {"$ref": "#/definitions/crs"}
+      }
+    },
+    "geometry": {
+      "required": [
+        "type",
+        "coordinates"
+      ],
+      "properties": {
+        "crs": {"$ref": "#/definitions/crs"}
+      }
+    },
+    "multipoint": {
+      "allOf": [{"$ref":"#/definitions/geometry"}],
+      "properties": {
+        "type": {"enum": ["MultiPoint"]},
+        "coordinates": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/position"}
+        }
+      }
+    },
+    "linestring": {
+      "allOf": [{"$ref":"#/definitions/geometry"}],
+      "properties": {
+        "type": {"enum": ["LineString"]},
+        "coordinates": {
+          "type": "array",
+          "minItems": 2,
+          "items": {"$ref": "#/definitions/position"}
+        }
+      }
+    },
+    "multilinestring": {
+      "allOf": [{"$ref":"#/definitions/geometry"}],
+      "properties": {
+        "type": {"enum": ["MultiLineString"]},
+        "coordinates": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/linestring/properties/coordinates"}
+        }
+      }
+    },
+    "polygon": {
+      "allOf": [{"$ref":"#/definitions/geometry"}],
+      "properties": {
+        "type": {"enum": ["Polygon"]},
+        "coordinates": {
+          "type": "array",
+          "items": {
+            "minItems": 4,
+            "type": "array",
+            "items": {"$ref": "#/definitions/position"}
+          }
+        }
+      }
+    },
+    "multipolygon": {
+      "allOf": [{"$ref":"#/definitions/geometry"}],
+      "title": "MultiPolygon",
+      "properties": {
+        "type": {"enum": ["MultiPolygon"]},
+        "coordinates": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/polygon/properties/coordinates"}
+        }
+      }
+    },
+    "crsnamed": {
+      "required": [
+        "type",
+        "properties"
+      ],
+      "properties": {
+        "type": {"enum": ["name"]},
+        "properties": {
+          "required": ["name"],
+          "properties": {
+            "name": {"type": "string"}
+          }
+        }
+      }
+    },
+    "crslinked": {
+      "required": [
+        "type",
+        "properties"
+      ],
+      "properties": {
+        "type": {"enum": ["link"]},
+        "properties": {
+          "required": ["href"],
+          "properties": {
+            "name": {"type": "string"},
+            "type": {
+              "enum": [
+                "proj4",
+                "ogcwkt",
+                "esriwkt"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "crs": {
+      "oneOf": [
+        {"$ref": "#/definitions/crsnamed"},
+        {"$ref": "#/definitions/crslinked"}
+      ]
+    },
+    "kvalitet": {
+      "properties": {
+        "målemetode": {"type": "integer"},
+        "målemetodeHøyde": {"type": "integer"},
+        "nøyaktighet": {"type": "integer"},
+        "nøyaktighetHøyde": {"type": "integer"},
+        "synbarhet": {"type": "integer"},
+        "maksimaltAvvik": {"type": "integer"}
+      }
+    }
+  }
+}
