@@ -41,7 +41,7 @@ public class DefaultLoader implements Loader {
                 return loadReader(read, reader);
             }
         } catch (IOException cause) {
-            throw new RuntimeException("Could not load file", cause);
+            throw new RuntimeException("Could not load file: " + file.getAbsolutePath(), cause);
         }
     }
 
