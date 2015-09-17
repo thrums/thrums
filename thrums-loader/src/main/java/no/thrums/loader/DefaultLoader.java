@@ -87,10 +87,10 @@ public class DefaultLoader implements Loader {
             runtimeException = new RuntimeException("Could not load uri", cause);
         }
         if ("classpath".equals(uri.getScheme())) {
-            return loadResource(read, uri.getPath());
+            return loadResource(read, nonNull(uri.getAuthority()) ? uri.getAuthority() + uri.getPath() : uri.getPath());
         }
         if ("file".equals(uri.getScheme())) {
-            return loadPath(read, uri.getPath());
+            return loadPath(read, nonNull(uri.getAuthority()) ? uri.getAuthority() + uri.getPath() : uri.getPath());
         }
         throw runtimeException;
     }
