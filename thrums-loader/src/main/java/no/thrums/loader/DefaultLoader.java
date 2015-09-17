@@ -83,7 +83,7 @@ public class DefaultLoader implements Loader {
         RuntimeException runtimeException = null;
         try {
             return loadUrl(read, uri.toURL());
-        } catch (MalformedURLException cause) {
+        } catch (Exception cause) {
             runtimeException = new RuntimeException("Could not load uri", cause);
         }
         if ("classpath".equals(uri.getScheme())) {
