@@ -8,6 +8,10 @@ import java.io.IOException;
 import java.io.Reader;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -97,6 +101,28 @@ public class PropertiesConfiguration implements Configuration {
             return properties.getProperty(name, defaultValue);
         }
         return defaultValue;
+    }
+
+    @Override
+    public URI getUri(String name, URI defaultValue) {
+        return getValue(name, string -> {
+            try {
+                return new URI(string);
+            } catch (URISyntaxException cause) {
+                throw new IllegalArgumentException("String is not an unified resource identifier: " + string);
+            }
+        }, defaultValue);
+    }
+
+    @Override
+    public URL getUrl(String name, URL defaultValue) {
+        return getValue(name, string -> {
+            try {
+                return new URL(string);
+            } catch (MalformedURLException cause) {
+                throw new IllegalArgumentException("String is not an unified resource locator: " + string);
+            }
+        }, defaultValue);
     }
 
     @Override

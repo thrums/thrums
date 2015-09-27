@@ -5,6 +5,8 @@ package no.thrums.configuration;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.URI;
+import java.net.URL;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -34,6 +36,9 @@ public interface Configuration {
 
     Character getCharacter(String name, Character defaultValue);
     String getString(String name, String defaultValue);
+
+    URI getUri(String name, URI defaultValue);
+    URL getUrl(String name, URL defaultValue);
 
     <T extends Enum<T>> T getEnumeration(Class<T> enumClass, String name, T defaultValue);
 
