@@ -25,14 +25,18 @@ import static java.util.Objects.requireNonNull;
  * @author Kristian Myrhaug
  * @since 2015-09-21
  */
-public class CharSequenceReader extends Reader {
+public class CharSequenceReader<T extends CharSequence> extends Reader {
 
-    private CharSequence charSequence;
+    private T charSequence;
     private int index;
     private int mark;
 
-    public CharSequenceReader(CharSequence charSequence) {
+    public CharSequenceReader(T charSequence) {
         this.charSequence = charSequence;
+    }
+
+    public T getCharSequence() {
+        return charSequence;
     }
 
     @Override
