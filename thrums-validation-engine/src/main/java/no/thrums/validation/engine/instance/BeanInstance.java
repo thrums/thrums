@@ -63,7 +63,11 @@ public class BeanInstance extends EngineInstance {
         if (Objects.isNull(properties)) {
             properties = new LinkedHashMap<>();
             for (Map.Entry<String, Object> property : bean.entrySet()) {
-                properties.put(property.getKey(), defined(property.getValue()));
+                Instance instance = defined(property.getValue());
+                if (instance.isNull()) {
+                    instance = new BeanNullInstance(instanceFactory, this);
+                }
+                properties.put(property.getKey(), instance);
             }
         }
         return properties;

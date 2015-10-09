@@ -59,7 +59,7 @@ public class Bean implements Map<String,Object> {
 
     @Override
     public boolean containsKey(Object key) {
-        return keySet().contains(key);
+        return getPropertyDescriptors().containsKey(key);
     }
 
     @Override
@@ -128,24 +128,14 @@ public class Bean implements Map<String,Object> {
 
     @Override
     public Set<String> keySet() {
-        Set<String> keySet = new LinkedHashSet<>();
-        for (Entry<String,PropertyDescriptor> entry : getPropertyDescriptors().entrySet()) {
-            Object value = getValue(entry.getValue());
-            if (value != null) {
-                keySet.add(entry.getKey());
-            }
-        }
-        return keySet;
+        return getPropertyDescriptors().keySet();
     }
 
     @Override
     public Collection<Object> values() {
         List<Object> values = new LinkedList<>();
-        for (Entry<String,PropertyDescriptor> entry : getPropertyDescriptors().entrySet()) {
-            Object value = getValue(entry.getValue());
-            if (value != null) {
-                values.add(value);
-            }
+        for (PropertyDescriptor propertyDescriptor : getPropertyDescriptors().values()) {
+            values.add(getValue(propertyDescriptor));
         }
         return values;
     }
@@ -154,10 +144,7 @@ public class Bean implements Map<String,Object> {
     public Set<Entry<String, Object>> entrySet() {
         Set<Entry<String,Object>> entrySet = new LinkedHashSet<>();
         for (Entry<String,PropertyDescriptor> entry : getPropertyDescriptors().entrySet()) {
-            Object value = getValue(entry.getValue());
-            if (value != null) {
-                entrySet.add(new BeanEntry<>(entry.getKey(), value, this));
-            }
+            entrySet.add(new BeanEntry<>(entry.getKey(), getValue(entry.getValue()), this));
         }
         return entrySet;
     }

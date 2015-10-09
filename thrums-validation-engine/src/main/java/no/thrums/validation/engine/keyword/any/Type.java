@@ -80,7 +80,7 @@ public class Type implements Keyword {
                 if (!types.contains("boolean")) {
                     context.addViolation("{no.thrums.validation.engine.keyword.any.Type.boolean.message}");
                 }
-            } else if (instance.isNull()) { //TODO: when is instance really null?
+            } else if (!instance.isUndefined() && instance.isNull()) {
                 if (!types.contains("null")) {
                     context.addViolation("{no.thrums.validation.engine.keyword.any.Type.null.message}");
                 }
