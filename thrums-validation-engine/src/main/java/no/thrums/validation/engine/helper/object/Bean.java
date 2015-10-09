@@ -21,10 +21,10 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -59,7 +59,7 @@ public class Bean implements Map<String,Object> {
 
     @Override
     public boolean containsKey(Object key) {
-        return getPropertyDescriptors().containsKey(key);
+        return keySet().contains(key);
     }
 
     @Override
@@ -128,14 +128,24 @@ public class Bean implements Map<String,Object> {
 
     @Override
     public Set<String> keySet() {
-        return getPropertyDescriptors().keySet();
+        Set<String> keySet = new LinkedHashSet<>();
+        for (Entry<String,PropertyDescriptor> entry : getPropertyDescriptors().entrySet()) {
+            Object value = getValue(entry.getValue());
+            if (value != null) {
+                keySet.add(entry.getKey());
+            }
+        }
+        return keySet;
     }
 
     @Override
     public Collection<Object> values() {
-        List<Object> values = new ArrayList<>();
-        for (PropertyDescriptor propertyDescriptor : getPropertyDescriptors().values()) {
-            values.add(getValue(propertyDescriptor));
+        List<Object> values = new LinkedList<>();
+        for (Entry<String,PropertyDescriptor> entry : getPropertyDescriptors().entrySet()) {
+            Object value = getValue(entry.getValue());
+            if (value != null) {
+                values.add(value);
+            }
         }
         return values;
     }
@@ -144,7 +154,10 @@ public class Bean implements Map<String,Object> {
     public Set<Entry<String, Object>> entrySet() {
         Set<Entry<String,Object>> entrySet = new LinkedHashSet<>();
         for (Entry<String,PropertyDescriptor> entry : getPropertyDescriptors().entrySet()) {
-            entrySet.add(new BeanEntry<>(entry.getKey(), getValue(entry.getValue()), this));
+            Object value = getValue(entry.getValue());
+            if (value != null) {
+                entrySet.add(new BeanEntry<>(entry.getKey(), value, this));
+            }
         }
         return entrySet;
     }

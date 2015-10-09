@@ -15,6 +15,9 @@
  */
 package no.thrums.validation.engine.keyword.any;
 
+import no.thrums.validation.Violation;
+import no.thrums.validation.engine.keyword.object.AdditionalProperties;
+import no.thrums.validation.engine.keyword.object.Required;
 import no.thrums.validation.instance.Instance;
 import no.thrums.validation.engine.keyword.Helper;
 import org.junit.Assert;
@@ -23,6 +26,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * @author Kristian Myrhaug
@@ -105,9 +109,32 @@ public class TypeTest {
         assertFalse(schema, Arrays.asList(), false, null, 1, 1.0, new LinkedHashMap());
     }
 
+    @Test
+    public void that_null_value_properties_in_beans_are_reported_as_not_present_rather_than_null() {
+        Instance schema = helper.instance("{\"type\":\"object\",\"required\":[\"id\"],\"properties\":{\"id\":{\"type\":\"integer\"}}}");
+        assertTrue(schema, helper.defined(new IdentifiableInstance(null)));
+    }
+
+    public static class IdentifiableInstance {
+
+        private Long id;
+
+        public IdentifiableInstance(Long id) {
+            this.id = id;
+        }
+
+        public Long getId() {
+            return id;
+        }
+    }
+
     private void assertTrue(Instance schema, Object... objects) {
         for (Object object : objects) {
-            Assert.assertTrue(helper.validate(schema, helper.defined(object)).isEmpty());
+            List<Violation> violations = helper.validate(schema, helper.defined(object));
+            for (Violation violation : violations) {
+                System.out.println(violation.getMessage());
+            }
+            Assert.assertTrue(violations.isEmpty());
         }
     }
 
