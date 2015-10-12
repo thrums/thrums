@@ -66,7 +66,7 @@ public class Required implements Keyword {
                     Map<String,Instance> object = instance.properties();
                     for (String key : required) {
                         if (!object.containsKey(key)) {
-                            context.addViolation("{no.thrums.validation.engine.keyword.object.Required.message}");
+                            context.addViolation(key, "{no.thrums.validation.engine.keyword.object.Required.message}");
                         }
                     }
                 } else {
