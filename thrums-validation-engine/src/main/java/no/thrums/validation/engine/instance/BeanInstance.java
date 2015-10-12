@@ -31,7 +31,6 @@ public class BeanInstance extends EngineInstance {
 
     private final Object value;
     private final Bean bean;
-    private Map<String, Instance> properties;
 
     public BeanInstance(InstanceFactory instanceFactory, Instance parent, Object value) {
         super(instanceFactory, parent);
@@ -46,12 +45,13 @@ public class BeanInstance extends EngineInstance {
 
     @Override
     public Instance get(String key) {
-        return getProperties().containsKey(key) ? getProperties().get(key) : undefined();
+        Map<String, Instance> properties = getProperties(true);
+        return properties.containsKey(key) ? properties.get(key) : undefined();
     }
 
     @Override
     public Map<String, Instance> properties() {
-        return getProperties();
+        return getProperties(false);
     }
 
     @Override
@@ -59,14 +59,15 @@ public class BeanInstance extends EngineInstance {
         return value;
     }
 
-    private Map<String, Instance> getProperties() {
-        if (Objects.isNull(properties)) {
-            properties = new LinkedHashMap<>();
-            for (Map.Entry<String, Object> property : bean.entrySet()) {
-                Instance instance = defined(property.getValue());
-                if (instance.isNull()) {
-                    instance = new BeanNullInstance(instanceFactory, this);
+    private Map<String, Instance> getProperties(boolean includeNull) {
+        Map<String, Instance> properties = new LinkedHashMap<>();
+        for (Map.Entry<String, Object> property : bean.entrySet()) {
+            Instance instance = defined(property.getValue());
+            if (instance.isNull()) {
+                if (includeNull) {
+                    properties.put(property.getKey(), instance);
                 }
+            } else {
                 properties.put(property.getKey(), instance);
             }
         }
