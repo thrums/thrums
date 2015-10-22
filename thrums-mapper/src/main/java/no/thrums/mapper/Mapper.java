@@ -15,6 +15,7 @@
  */
 package no.thrums.mapper;
 
+import javax.enterprise.util.TypeLiteral;
 import java.io.Reader;
 import java.io.Writer;
 
@@ -35,6 +36,16 @@ public interface Mapper {
     <Type> Type read(Reader reader, Class<Type> clazz) throws MapperException;
 
     /**
+     * Read/deserialize/unmarshal reader into an object of clazz
+     * @param reader The {@link Reader reader} to deserialize from
+     * @param typeLiteral The {@link TypeLiteral type literal} to deserialize to
+     * @param <Type>
+     * @return A deserialized instance og {@code typeLiteral}
+     * @throws MapperException
+     */
+    <Type> Type read(Reader reader, TypeLiteral<Type> typeLiteral) throws MapperException;
+
+    /**
      * Write/serialize/marshal an object into writer
      * @param writer The {@link Writer writer} to write to
      * @param object The {@link Object object} to serialize
@@ -51,6 +62,16 @@ public interface Mapper {
      * @throws MapperException
      */
     <Type> Type read(String string, Class<Type> clazz) throws MapperException;
+
+    /**
+     * Read/deserialize/unmarshal string into an object of clazz
+     * @param string The {@link String string} to deserialize from
+     * @param typeLiteral The {@link TypeLiteral type literal} to deserialize to
+     * @param <Type>
+     * @return A deserialized instance og {@code typeLiteral}
+     * @throws MapperException
+     */
+    <Type> Type read(String string, TypeLiteral<Type> typeLiteral) throws MapperException;
 
     /**
      * Write/serialize/marshal an object to string

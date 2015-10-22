@@ -15,16 +15,19 @@ limitations under the License.
  */
 package no.thrums.mapper.jackson;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import no.thrums.mapper.Mapper;
 import no.thrums.mapper.MapperException;
 
+import javax.enterprise.util.TypeLiteral;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.lang.reflect.Type;
 
 /**
  * @author Kristian Myrhaug
@@ -42,7 +45,16 @@ public class JacksonMapper implements Mapper {
     @Override
     public <Type> Type read(Reader reader, Class<Type> type) throws MapperException {
         try {
-            return objectMapper.reader(type).readValue(reader);
+            return objectMapper.readValue(reader, type);
+        } catch (IOException cause) {
+            throw new MapperException(cause.getMessage(), cause);
+        }
+    }
+
+    @Override
+    public <Type> Type read(Reader reader, TypeLiteral<Type> typeLiteral) throws MapperException {
+        try {
+            return objectMapper.readValue(reader, new TypeLiteralTypeReference<>(typeLiteral));
         } catch (IOException cause) {
             throw new MapperException(cause.getMessage(), cause);
         }
@@ -65,12 +77,33 @@ public class JacksonMapper implements Mapper {
     }
 
     @Override
+    public <Type> Type read(String string, TypeLiteral<Type> typeLiteral) throws MapperException {
+        try (StringReader stringReader = new StringReader(string)){
+            return read(stringReader, typeLiteral);
+        }
+    }
+
+    @Override
     public String write(Object object) throws MapperException {
         try (StringWriter stringWriter = new StringWriter()) {
             write(stringWriter, object);
             return stringWriter.toString();
         } catch (IOException cause) {
             throw new MapperException(cause.getMessage(), cause);
+        }
+    }
+
+    private static class TypeLiteralTypeReference<T> extends TypeReference<T> {
+
+        private TypeLiteral<T> typeLiteral;
+
+        public TypeLiteralTypeReference(TypeLiteral<T> typeLiteral) {
+            this.typeLiteral = typeLiteral;
+        }
+
+        @Override
+        public Type getType() {
+            return typeLiteral.getType();
         }
     }
 }

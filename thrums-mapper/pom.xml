@@ -16,5 +16,9 @@
     <description>Thrum to serialize/deserialize POJOs</description>
 
     <dependencies>
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+        </dependency>
     </dependencies>
 </project>
