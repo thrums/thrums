@@ -28,7 +28,7 @@ import javax.inject.Provider;
  * @since 2015-02-24
  */
 @Engine
-@Named("no.thrums.validation.engine")
+@Named("no.thrums.validation.engine.InstanceLoaderProvider")
 public class InstanceLoaderProvider implements Provider<InstanceLoader> {
 
     private final Mapper mapper;
@@ -39,7 +39,7 @@ public class InstanceLoaderProvider implements Provider<InstanceLoader> {
     }
 
     @Engine
-    @Named("no.thrums.validation.engine")
+    @Named("no.thrums.validation.engine.InstanceLoaderProvider")
     @Override
     public InstanceLoader get() {
         return new EngineInstanceLoader(mapper);

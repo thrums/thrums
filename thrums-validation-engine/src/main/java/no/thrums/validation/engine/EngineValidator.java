@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static java.util.Objects.nonNull;
+
 /**
  * @author Kristian Myrhaug
  * @since 2015-02-05
@@ -41,6 +43,12 @@ public class EngineValidator implements Validator {
     private final Keyword[] keywords;
 
     @Inject
+    public EngineValidator(InstanceFactory instanceFactory, PathFactory pathFactory, List<Keyword> keywords) {
+        this.instanceFactory = instanceFactory;
+        this.pathFactory = pathFactory;
+        this.keywords = nonNull(keywords) ? keywords.toArray(new Keyword[keywords.size()]) : null;
+    }
+
     public EngineValidator(InstanceFactory instanceFactory, PathFactory pathFactory, Keyword... keywords) {
         this.instanceFactory = instanceFactory;
         this.pathFactory = pathFactory;
@@ -56,7 +64,7 @@ public class EngineValidator implements Validator {
             KeywordValidatorContextImpl context = queue.get(index);
             for (Keyword keyword : keywords) {
                 KeywordValidator keywordValidator = keyword.getKeywordValidator(context.getSchema());
-                if (Objects.nonNull(keywordValidator)) {
+                if (nonNull(keywordValidator)) {
                     keywordValidator.vaildate(context, context.getInstance());
                 }
             }

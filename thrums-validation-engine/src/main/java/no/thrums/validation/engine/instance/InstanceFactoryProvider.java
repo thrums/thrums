@@ -28,7 +28,7 @@ import javax.inject.Provider;
  * @since 2015-02-24
  */
 @Engine
-@Named("no.thrums.validation.engine")
+@Named("no.thrums.validation.engine.InstanceFactoryProvider")
 public class InstanceFactoryProvider implements Provider<InstanceFactory> {
 
     private final InstanceLoader instanceLoader;
@@ -39,7 +39,7 @@ public class InstanceFactoryProvider implements Provider<InstanceFactory> {
     }
 
     @Engine
-    @Named("no.thrums.validation.engine")
+    @Named("no.thrums.validation.engine.InstanceFactory")
     @Override
     public InstanceFactory get() {
         return new EngineInstanceFactory(instanceLoader);

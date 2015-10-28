@@ -27,11 +27,11 @@ import javax.inject.Provider;
  */
 
 @Engine
-@Named("no.thrums.validation.engine")
+@Named("no.thrums.validation.engine.PathFactoryProvider")
 public class PathFactoryProvider implements Provider<PathFactory> {
 
     @Engine
-    @Named("no.thrums.validation.engine")
+    @Named("no.thrums.validation.engine.PathFactory")
     @Override
     public PathFactory get() {
         return new EnginePathFactory();

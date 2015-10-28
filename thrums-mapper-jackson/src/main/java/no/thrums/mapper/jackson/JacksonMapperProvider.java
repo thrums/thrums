@@ -27,7 +27,7 @@ import javax.inject.Provider;
  * @since 2015-02-24
  */
 @Jackson
-@Named("no.thrums.mapper.jackson")
+@Named("no.thrums.mapper.jackson.JacksonMapperProvider")
 public class JacksonMapperProvider implements Provider<Mapper> {
 
     private final ObjectMapper objectMapper;
@@ -38,7 +38,7 @@ public class JacksonMapperProvider implements Provider<Mapper> {
     }
 
     @Jackson
-    @Named("no.thrums.mapper.jackson")
+    @Named("no.thrums.mapper.jackson.JacksonMapper")
     @Override
     public Mapper get() {
         return new JacksonMapper(new ObjectMapper());
