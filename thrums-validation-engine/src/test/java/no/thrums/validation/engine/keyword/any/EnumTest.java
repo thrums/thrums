@@ -21,6 +21,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 /**
  * @author Kristian Myrhaug
  * @since 2014-11-16
@@ -61,6 +64,7 @@ public class EnumTest {
         Assert.assertTrue(helper.validate(schema, "null").isEmpty());
         Assert.assertTrue(helper.validate(schema, "1").isEmpty());
         Assert.assertTrue(helper.validate(schema, "\"two\"").isEmpty());
+        Assert.assertTrue(helper.validate(schema, helper.defined(BigInteger.valueOf(1))).isEmpty());
     }
 
     @Test

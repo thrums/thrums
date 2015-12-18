@@ -15,9 +15,12 @@
  */
 package no.thrums.validation.engine.instance;
 
+import no.thrums.validation.engine.helper.number.NumberComparator;
+import no.thrums.validation.engine.helper.number.NumberTransformer;
 import no.thrums.validation.instance.Instance;
 import no.thrums.validation.instance.InstanceFactory;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -30,6 +33,8 @@ import static java.util.Objects.*;
  */
 public abstract class EngineInstance implements Instance {
 
+    private static final NumberComparator NUMBER_COMPARATOR = new NumberComparator();
+    private static final NumberTransformer NUMBER_TRANSFORMER = new NumberTransformer();
     protected final InstanceFactory instanceFactory;
     private final Instance parent;
 
@@ -158,7 +163,7 @@ public abstract class EngineInstance implements Instance {
     }
 
     public boolean equals(Instance other) {
-        return Objects.equals(isArray(), other.isArray()) &&
+        if (    Objects.equals(isArray(), other.isArray()) &&
                 Objects.equals(isBoolean(), other.isBoolean()) &&
                 Objects.equals(isIntegral(), other.isIntegral()) &&
                 Objects.equals(isNull(), other.isNull()) &&
@@ -166,12 +171,21 @@ public abstract class EngineInstance implements Instance {
                 Objects.equals(isUndefined(), other.isUndefined()) &&
                 Objects.equals(isNumber(), other.isNumber()) &&
                 Objects.equals(isObject(), other.isObject()) &&
-                Objects.equals(isString(), other.isString()) &&
-                Objects.equals(asValue(), other.asValue());
+                Objects.equals(isString(), other.isString())) {
+            if (isNumber()) {
+                return NUMBER_COMPARATOR.compare(asNumber(), other.asNumber()) == 0;
+            }
+            return Objects.equals(asValue(), other.asValue());
+        }
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isArray(), isBoolean(), isIntegral(), isNull(), isReference(), isUndefined(), isNumber(), isObject(), isString(), asValue());
+        Object value = asValue();
+        if (isNumber()) {
+            value = NUMBER_TRANSFORMER.toBigDecimal(asNumber());
+        }
+        return Objects.hash(isArray(), isBoolean(), isIntegral(), isNull(), isReference(), isUndefined(), isNumber(), isObject(), isString(), value);
     }
 }
