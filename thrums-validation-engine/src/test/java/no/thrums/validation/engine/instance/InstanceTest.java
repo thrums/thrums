@@ -26,6 +26,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -37,12 +38,13 @@ import java.util.Map;
  */
 public class InstanceTest {
 
+    private InstanceLoader instanceLoader;
     private InstanceFactory instanceFactory;
 
     @Before
     public void before(){
         Mapper mapper = new JacksonMapper(new ObjectMapper());
-        InstanceLoader instanceLoader = new EngineInstanceLoader(mapper);
+        instanceLoader = new EngineInstanceLoader(mapper);
         instanceFactory = new EngineInstanceFactory(instanceLoader);
     }
 
@@ -99,6 +101,34 @@ public class InstanceTest {
         bean.put("boolean", true);
         Assert.assertTrue(pojo.getBoolean());
         Assert.assertTrue((Boolean) bean.get("boolean"));*/
+    }
+
+    @Test
+    public void that_objects_are_equal() {
+        Instance beanInstance = instanceFactory.defined(new Pojo(
+                new int[]{1, 2, 3},
+                true,
+                2,
+                new ArrayList<>(),
+                3,
+                new LinkedHashMap<String, Object>(),
+                new Pojo(null, null, null, null, null, null, null, null),
+                "four"
+        ));
+        Instance mapInstance = instanceLoader.loadReader(instanceFactory, new StringReader(
+                "{\"ints\":[1, 2, 3],\"boolean\":true,\"integer\":2,\"list\":[],\"number\":3,\"map\":{},\"pojo\":{},\"string\":\"four\"}"
+        ));
+        Assert.assertEquals(beanInstance, mapInstance);
+
+        mapInstance = instanceLoader.loadReader(instanceFactory, new StringReader(
+                "{\"ints\":[1, 2, 3],\"boolean\":true,\"integer\":2,\"list\":[],\"number\":3,\"map\":{},\"pojo\":{\"hi\":\"hello\"},\"string\":\"four\"}"
+        ));
+        Assert.assertNotEquals(beanInstance, mapInstance);
+
+        mapInstance = instanceLoader.loadReader(instanceFactory, new StringReader(
+                "{\"ints\":[1, 2, 3],\"boolean\":true,\"integer\":2,\"list\":[],\"number\":3,\"map\":{\"hi\":\"hello\"},\"pojo\":{},\"string\":\"four\"}"
+        ));
+        Assert.assertNotEquals(beanInstance, mapInstance);
     }
 
     public class Pojo {

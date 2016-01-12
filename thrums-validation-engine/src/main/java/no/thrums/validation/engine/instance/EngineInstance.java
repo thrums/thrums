@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.*;
 
@@ -174,6 +175,24 @@ public abstract class EngineInstance implements Instance {
                 Objects.equals(isString(), other.isString())) {
             if (isNumber()) {
                 return NUMBER_COMPARATOR.compare(asNumber(), other.asNumber()) == 0;
+            } else if (isObject()) {
+                Map<String,Instance> thisProperties = this.properties();
+                Map<String,Instance> otherProperties = other.properties();
+                List<String> thisKeySet = thisProperties.keySet().stream().sorted(String::compareTo).collect(Collectors.toList());
+                List<String> otherKeySet = otherProperties.keySet().stream().sorted(String::compareTo).collect(Collectors.toList());
+                if (thisKeySet.equals(otherKeySet)) {
+                    for (String key : thisKeySet) {
+                        if (!thisProperties.get(key).equals(otherProperties.get(key))) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                return false;
+            } else if (isArray()) {
+                List<Instance> thisItems = this.items().stream().collect(Collectors.toList());
+                List<Instance> otherItems = other.items().stream().collect(Collectors.toList());
+                return thisItems.equals(otherItems);
             }
             return Objects.equals(asValue(), other.asValue());
         }
@@ -185,6 +204,14 @@ public abstract class EngineInstance implements Instance {
         Object value = asValue();
         if (isNumber()) {
             value = NUMBER_TRANSFORMER.toBigDecimal(asNumber());
+        } else if (isObject()) {
+            value = properties().entrySet().stream()
+                    .sorted((a, b) -> a.getKey().compareTo(b.getKey()))
+                    .map(Map.Entry::getValue)
+                    .collect(Collectors.toList());
+        } else if (isArray()) {
+            value = items().stream()
+                    .collect(Collectors.toList());
         }
         return Objects.hash(isArray(), isBoolean(), isIntegral(), isNull(), isReference(), isUndefined(), isNumber(), isObject(), isString(), value);
     }
