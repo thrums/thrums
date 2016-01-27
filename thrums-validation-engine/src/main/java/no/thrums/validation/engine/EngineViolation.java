@@ -61,10 +61,10 @@ public class EngineViolation implements Violation {
     }
 
     @Override
-    public String getMessage() {
+    public String getMessage(Locale locale) {
         String alteredMessageTemplate = message;
         try {
-            ResourceBundle resourceBundle = ResourceBundle.getBundle("no.thrums.validation.engine.Message", Locale.getDefault(Locale.Category.DISPLAY));
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("no.thrums.validation.engine.Message", locale);
             List<String> messageTemplates = extractMessageTemplates(message);
             for (String messageTemplate : messageTemplates) {
                 if (resourceBundle.containsKey(messageTemplate)) {
@@ -103,6 +103,11 @@ public class EngineViolation implements Violation {
             alteredMessageTemplate = alteredMessageTemplate.replace(String.format("{%s}", messageTemplate), String.valueOf(instance.asValue()));
         }
         return alteredMessageTemplate;
+    }
+
+    @Override
+    public String getMessage() {
+        return getMessage(Locale.getDefault(Locale.Category.DISPLAY));
     }
 
     private Integer getIndex(String node) {

@@ -18,6 +18,8 @@ package no.thrums.validation;
 import no.thrums.validation.instance.Instance;
 import no.thrums.validation.path.Path;
 
+import java.util.Locale;
+
 /**
  * @author Kristian Myrhaug
  * @since 2014-12-19
@@ -26,6 +28,7 @@ public interface Violation {
 
     Path getPath();
     String getMessage();
+    String getMessage(Locale locale);
     Instance getInstance();
     Instance getSchema();
 }
