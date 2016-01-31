@@ -16,55 +16,30 @@
 package no.thrums.io;
 
 import java.io.IOException;
-import java.io.Reader;
+import java.io.Writer;
 
 import static java.util.Objects.nonNull;
 import static java.util.Objects.requireNonNull;
 
 /**
  * @author Kristian Myrhaug
- * @since 2015-09-21
+ * @since 2015-10-06
  */
-public class CharSequenceReader<T extends CharSequence> extends Reader {
+public class AppendableWriter<T extends Appendable> extends Writer {
 
-    private T charSequence;
-    private int index;
-    private int mark;
+    private T appendable;
 
-    public CharSequenceReader(T charSequence) {
-        this.charSequence = charSequence;
+    public AppendableWriter(T appendable) {
+        this.appendable = appendable;
     }
 
-    public T getCharSequence() {
-        return charSequence;
-    }
-
-    @Override
-    public boolean markSupported() {
-        return true;
+    public T getAppendable() {
+        return appendable;
     }
 
     @Override
-    public void mark(int readAheadLimit) throws IOException {
-        mark = index;
-    }
-
-    @Override
-    public void reset() throws IOException {
-        index = mark;
-    }
-
-    @Override
-    public int read() throws IOException {
-        if (nonNull(charSequence) && index < charSequence.length()) {
-            return charSequence.charAt(index++);
-        }
-        return -1;
-    }
-
-    @Override
-    public int read(char[] characters, int offset, int length) throws IOException {
-        if (nonNull(charSequence) && index < charSequence.length()) {
+    public void write(char[] characters, int offset, int length) throws IOException {
+        if (nonNull(appendable)) {
             characters = requireNonNull(characters, "May not be null: characters");
             if (offset < 0) {
                 throw new IndexOutOfBoundsException("To small: offset");
@@ -83,26 +58,26 @@ public class CharSequenceReader<T extends CharSequence> extends Reader {
                 throw new IndexOutOfBoundsException("To small: offset + length");
             }
             if (length == 0) {
-                return 0;
+                return;
             }
-            int read = 0;
-            for (int index = 0; index < length; index++) {
-                int character = read();
-                if (character < 0) {
-                    return read;
-                }
-                characters[offset + index] = (char) character;
-                read++;
+            for (int index = offset; index < size; index++) {
+                appendable.append(characters[index]);
             }
-            return read;
         }
-        return -1;
     }
 
     @Override
-    public void close() throws IOException {
-        charSequence = null;
-        index = 0;
-        mark = 0;
+    public void flush() throws IOException {
+
+    }
+
+    @Override
+    public String toString() {
+        return nonNull(appendable) ? appendable.toString() : null;
+    }
+
+    @Override
+    public void close() {
+        this.appendable = null;
     }
 }
