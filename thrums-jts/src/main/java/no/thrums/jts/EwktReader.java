@@ -50,7 +50,7 @@ public class EwktReader {
                 extension = wellKnownText.subSequence(0, semiColonIndex);
                 wellKnownText = new StringBuilder(wellKnownText.subSequence(semiColonIndex + 1, wellKnownText.length()));
             }
-            try (CharSequenceReader charSequenceReader = new CharSequenceReader(wellKnownText)) {
+            try (CharSequenceReader<StringBuilder> charSequenceReader = new CharSequenceReader<>(wellKnownText)) {
                 Map<String,String> userData = readUserData(extension);
                 Integer srid = getIgnoreCase(userData, SRID_KEY);
                 GeometryFactory geometryFactory = null;
