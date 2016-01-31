@@ -19,16 +19,20 @@
         <!-- Internal artifacts -->
         <dependency>
             <groupId>no.thrums</groupId>
-            <artifactId>thrums-validation</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>no.thrums</groupId>
             <artifactId>thrums-mapper</artifactId>
         </dependency>
         <dependency>
             <groupId>no.thrums</groupId>
             <artifactId>thrums-mapper-jackson</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>no.thrums</groupId>
+            <artifactId>thrums-reflection</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>no.thrums</groupId>
+            <artifactId>thrums-validation</artifactId>
         </dependency>
 
         <!-- Third-party -->

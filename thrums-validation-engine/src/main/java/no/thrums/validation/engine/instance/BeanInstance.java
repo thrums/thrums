@@ -15,7 +15,7 @@
  */
 package no.thrums.validation.engine.instance;
 
-import no.thrums.validation.engine.helper.object.Bean;
+import no.thrums.reflection.Bean;
 import no.thrums.validation.instance.Instance;
 import no.thrums.validation.instance.InstanceFactory;
 

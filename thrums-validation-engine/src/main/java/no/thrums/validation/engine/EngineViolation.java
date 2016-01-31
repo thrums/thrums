@@ -16,7 +16,7 @@
 package no.thrums.validation.engine;
 
 import no.thrums.validation.Violation;
-import no.thrums.validation.engine.helper.object.Pojo;
+import no.thrums.reflection.Pojo;
 import no.thrums.validation.instance.Instance;
 import no.thrums.validation.instance.InstanceFactory;
 import no.thrums.validation.path.Path;

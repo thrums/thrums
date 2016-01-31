@@ -13,7 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package no.thrums.validation.engine.helper.object;
+package no.thrums.reflection;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;

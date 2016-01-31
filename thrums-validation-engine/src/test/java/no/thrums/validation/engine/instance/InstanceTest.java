@@ -18,7 +18,7 @@ package no.thrums.validation.engine.instance;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import no.thrums.mapper.Mapper;
 import no.thrums.mapper.jackson.JacksonMapper;
-import no.thrums.validation.engine.helper.object.Bean;
+import no.thrums.reflection.Bean;
 import no.thrums.validation.instance.Instance;
 import no.thrums.validation.instance.InstanceFactory;
 import no.thrums.validation.instance.InstanceLoader;

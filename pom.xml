@@ -66,6 +66,7 @@ limitations under the License.
         <module>thrums-mapper-jackson</module>
         <module>thrums-validation</module>
         <module>thrums-validation-engine</module>
+        <module>thrums-reflection</module>
     </modules>
 
     <dependencyManagement>
@@ -99,6 +100,11 @@ limitations under the License.
             <dependency>
                 <groupId>no.thrums</groupId>
                 <artifactId>thrums-mapper-jackson</artifactId>
+                <version>1.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>no.thrums</groupId>
+                <artifactId>thrums-reflection</artifactId>
                 <version>1.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
