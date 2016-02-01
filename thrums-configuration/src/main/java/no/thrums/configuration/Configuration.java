@@ -16,11 +16,14 @@ import java.time.OffsetDateTime;
 import java.time.OffsetTime;
 import java.time.Period;
 import java.time.ZonedDateTime;
+import java.util.Set;
 
 /**
  * @author Kristian Myrhaug
  */
 public interface Configuration {
+
+    Set<String> getNames();
 
     Boolean getBoolean(String name, Boolean defaultValue);
 

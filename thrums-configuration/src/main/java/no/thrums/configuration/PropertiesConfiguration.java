@@ -21,7 +21,9 @@ import java.time.OffsetDateTime;
 import java.time.OffsetTime;
 import java.time.Period;
 import java.time.ZonedDateTime;
+import java.util.Collections;
 import java.util.Properties;
+import java.util.Set;
 import java.util.function.Function;
 
 import static java.util.Objects.nonNull;
@@ -36,6 +38,11 @@ public class PropertiesConfiguration implements Configuration {
     @Inject
     public PropertiesConfiguration(Properties properties) {
         this.properties = properties;
+    }
+    
+    @Override
+    public Set<String> getNames() {
+        return nonNull(properties) ? properties.stringPropertyNames() : Collections.emptySet();
     }
 
     @Override
