@@ -46,8 +46,18 @@ public class PropertiesConfiguration implements Configuration {
     }
 
     @Override
+    public Boolean getBoolean(String name) {
+        return getBoolean(name, null);
+    }
+
+    @Override
     public Boolean getBoolean(String name, Boolean defaultValue){
         return getValue(name, Boolean::valueOf, defaultValue);
+    }
+
+    @Override
+    public Byte getByte(String name) {
+        return getByte(name, null);
     }
 
     @Override
@@ -56,8 +66,18 @@ public class PropertiesConfiguration implements Configuration {
     }
 
     @Override
+    public Short getShort(String name) {
+        return getShort(name, null);
+    }
+
+    @Override
     public Short getShort(String name, Short defaultValue) {
         return getValue(name, Short::valueOf, defaultValue);
+    }
+
+    @Override
+    public Integer getInteger(String name) {
+        return getInteger(name, null);
     }
 
     @Override
@@ -66,8 +86,18 @@ public class PropertiesConfiguration implements Configuration {
     }
 
     @Override
+    public BigInteger getBigInteger(String name) {
+        return getBigInteger(name, null);
+    }
+
+    @Override
     public BigInteger getBigInteger(String name, BigInteger defaultValue) {
         return getValue(name, BigInteger::new, defaultValue);
+    }
+
+    @Override
+    public Long getLong(String name) {
+        return getLong(name, null);
     }
 
     @Override
@@ -76,8 +106,18 @@ public class PropertiesConfiguration implements Configuration {
     }
 
     @Override
+    public Float getFloat(String name) {
+        return getFloat(name, null);
+    }
+
+    @Override
     public Float getFloat(String name, Float defaultValue) {
         return getValue(name, Float::valueOf, defaultValue);
+    }
+
+    @Override
+    public Double getDouble(String name) {
+        return getDouble(name, null);
     }
 
     @Override
@@ -86,8 +126,18 @@ public class PropertiesConfiguration implements Configuration {
     }
 
     @Override
+    public BigDecimal getBigDecimal(String name) {
+        return getBigDecimal(name, null);
+    }
+
+    @Override
     public BigDecimal getBigDecimal(String name, BigDecimal defaultValue) {
         return getValue(name, BigDecimal::new, defaultValue);
+    }
+
+    @Override
+    public Character getCharacter(String name) {
+        return getCharacter(name, null);
     }
 
     @Override
@@ -103,11 +153,21 @@ public class PropertiesConfiguration implements Configuration {
     }
 
     @Override
+    public String getString(String name) {
+        return getString(name, null);
+    }
+
+    @Override
     public String getString(String name, String defaultValue) {
         if (nonNull(properties)) {
             return properties.getProperty(name, defaultValue);
         }
         return defaultValue;
+    }
+
+    @Override
+    public URI getUri(String name) {
+        return getUri(name, null);
     }
 
     @Override
@@ -122,6 +182,11 @@ public class PropertiesConfiguration implements Configuration {
     }
 
     @Override
+    public URL getUrl(String name) {
+        return getUrl(name, null);
+    }
+
+    @Override
     public URL getUrl(String name, URL defaultValue) {
         return getValue(name, string -> {
             try {
@@ -133,8 +198,18 @@ public class PropertiesConfiguration implements Configuration {
     }
 
     @Override
+    public <T extends Enum<T>> T getEnumeration(Class<T> enumClass, String name) {
+        return getEnumeration(enumClass, name, null);
+    }
+
+    @Override
     public <T extends Enum<T>> T getEnumeration(Class<T> enumClass, String name, T defaultValue) {
         return getValue(name, string -> Enum.valueOf(enumClass, string), defaultValue);
+    }
+
+    @Override
+    public LocalTime getLocalTime(String name) {
+        return getLocalTime(name, null);
     }
 
     @Override
@@ -143,8 +218,18 @@ public class PropertiesConfiguration implements Configuration {
     }
 
     @Override
+    public OffsetTime getOffsetTime(String name) {
+        return getOffsetTime(name, null);
+    }
+
+    @Override
     public OffsetTime getOffsetTime(String name, OffsetTime defaultValue) {
         return getValue(name, OffsetTime::parse, defaultValue);
+    }
+
+    @Override
+    public LocalDate getLocalDate(String name) {
+        return getLocalDate(name, null);
     }
 
     @Override
@@ -153,8 +238,18 @@ public class PropertiesConfiguration implements Configuration {
     }
 
     @Override
+    public LocalDateTime getLocalDateTime(String name) {
+        return getLocalDateTime(name, null);
+    }
+
+    @Override
     public LocalDateTime getLocalDateTime(String name, LocalDateTime defaultValue) {
         return getValue(name, LocalDateTime::parse, defaultValue);
+    }
+
+    @Override
+    public OffsetDateTime getOffsetDateTime(String name) {
+        return getOffsetDateTime(name, null);
     }
 
     @Override
@@ -163,8 +258,18 @@ public class PropertiesConfiguration implements Configuration {
     }
 
     @Override
+    public ZonedDateTime getZonedDateTime(String name) {
+        return getZonedDateTime(name, null);
+    }
+
+    @Override
     public ZonedDateTime getZonedDateTime(String name, ZonedDateTime defaultValue) {
         return getValue(name, ZonedDateTime::parse, defaultValue);
+    }
+
+    @Override
+    public Instant getInstant(String name) {
+        return getInstant(name, null);
     }
 
     @Override
@@ -173,8 +278,18 @@ public class PropertiesConfiguration implements Configuration {
     }
 
     @Override
+    public Duration getDuration(String name) {
+        return getDuration(name, null);
+    }
+
+    @Override
     public Duration getDuration(String name, Duration defaultValue) {
         return getValue(name, Duration::parse, defaultValue);
+    }
+
+    @Override
+    public Period getPeriod(String name) {
+        return getPeriod(name, null);
     }
 
     @Override
