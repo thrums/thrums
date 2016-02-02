@@ -97,7 +97,7 @@ public class EngineInstanceLoader implements InstanceLoader {
                 return loadReader(instanceFactory, reader);
             }
         } catch (IOException cause) {
-            throw new RuntimeException("Could not load url", cause);
+            throw new RuntimeException("Could not load url: " + url, cause);
         }
     }
 
