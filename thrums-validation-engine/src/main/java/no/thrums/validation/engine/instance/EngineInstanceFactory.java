@@ -76,8 +76,11 @@ public class EngineInstanceFactory implements InstanceFactory {
     }
 
     public Instance reference(Instance instance) {
-        if (instance.isReference()) {
-            return new ReferenceInstance(this, instanceLoader, instance);
+        if (instance.isObject()) {
+            Instance $ref = instance.get("$ref");
+            if ($ref.isString()) {
+                return new ReferenceInstance(this, instanceLoader, instance);
+            }
         }
         return instance;
     }
