@@ -44,8 +44,8 @@ limitations under the License.
     </licenses>
 
     <scm>
-        <url>https://github.com/thrums/thrums-parent.git</url>
-        <developerConnection>scm:git:https://github.com/thrums/thrums-parent</developerConnection>
+        <url>https://github.com/thrums/thrums.git</url>
+        <developerConnection>scm:git:https://github.com/thrums/thrums</developerConnection>
     </scm>
 
     <properties>
