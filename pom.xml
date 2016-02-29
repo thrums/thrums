@@ -5,7 +5,7 @@
 
     <groupId>no.thrums</groupId>
     <artifactId>thrums-parent</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>pom</packaging>
 
     <name>Thrums - Parent</name>
@@ -75,47 +75,47 @@ limitations under the License.
             <dependency>
                 <groupId>no.thrums</groupId>
                 <artifactId>thrums-configuration</artifactId>
-                <version>1.0.1-SNAPSHOT</version>
+                <version>1.0.1</version>
             </dependency>
             <dependency>
                 <groupId>no.thrums</groupId>
                 <artifactId>thrums-io</artifactId>
-                <version>1.0.1-SNAPSHOT</version>
+                <version>1.0.1</version>
             </dependency>
             <dependency>
                 <groupId>no.thrums</groupId>
                 <artifactId>thrums-jts</artifactId>
-                <version>1.0.1-SNAPSHOT</version>
+                <version>1.0.1</version>
             </dependency>
             <dependency>
                 <groupId>no.thrums</groupId>
                 <artifactId>thrums-loader</artifactId>
-                <version>1.0.1-SNAPSHOT</version>
+                <version>1.0.1</version>
             </dependency>
             <dependency>
                 <groupId>no.thrums</groupId>
                 <artifactId>thrums-mapper</artifactId>
-                <version>1.0.1-SNAPSHOT</version>
+                <version>1.0.1</version>
             </dependency>
             <dependency>
                 <groupId>no.thrums</groupId>
                 <artifactId>thrums-mapper-jackson</artifactId>
-                <version>1.0.1-SNAPSHOT</version>
+                <version>1.0.1</version>
             </dependency>
             <dependency>
                 <groupId>no.thrums</groupId>
                 <artifactId>thrums-reflection</artifactId>
-                <version>1.0.1-SNAPSHOT</version>
+                <version>1.0.1</version>
             </dependency>
             <dependency>
                 <groupId>no.thrums</groupId>
                 <artifactId>thrums-validation</artifactId>
-                <version>1.0.1-SNAPSHOT</version>
+                <version>1.0.1</version>
             </dependency>
             <dependency>
                 <groupId>no.thrums</groupId>
                 <artifactId>thrums-validation-engine</artifactId>
-                <version>1.0.1-SNAPSHOT</version>
+                <version>1.0.1</version>
             </dependency>
 
             <!-- Third-party -->
