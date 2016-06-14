@@ -15,13 +15,12 @@
  */
 package no.thrums.validation.engine.keyword.any;
 
-import no.thrums.validation.instance.Instance;
+import no.thrums.instance.Instance;
 import no.thrums.validation.engine.keyword.Helper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**

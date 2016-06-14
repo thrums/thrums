@@ -16,7 +16,7 @@
 package no.thrums.validation.engine.keyword.array;
 
 import no.thrums.validation.engine.keyword.Helper;
-import no.thrums.validation.instance.Instance;
+import no.thrums.instance.Instance;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

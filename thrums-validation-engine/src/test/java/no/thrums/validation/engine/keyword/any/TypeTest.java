@@ -16,9 +16,7 @@
 package no.thrums.validation.engine.keyword.any;
 
 import no.thrums.validation.Violation;
-import no.thrums.validation.engine.keyword.object.AdditionalProperties;
-import no.thrums.validation.engine.keyword.object.Required;
-import no.thrums.validation.instance.Instance;
+import no.thrums.instance.Instance;
 import no.thrums.validation.engine.keyword.Helper;
 import org.junit.Assert;
 import org.junit.Before;

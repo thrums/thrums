@@ -15,21 +15,21 @@
  */
 package no.thrums.validation.engine;
 
+import no.thrums.instance.Instance;
+import no.thrums.instance.InstanceFactory;
 import no.thrums.validation.Violation;
-import no.thrums.reflection.Pojo;
-import no.thrums.validation.instance.Instance;
-import no.thrums.validation.instance.InstanceFactory;
-import no.thrums.validation.path.Path;
+import no.thrums.instance.path.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.beans.*;
+import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
+import java.util.*;
+
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 /**
  * @author Kristian Myrhaug
@@ -77,13 +77,13 @@ public class EngineViolation implements Violation {
         List<String> messageTemplates = extractMessageTemplates(alteredMessageTemplate);
         for (String messageTemplate : messageTemplates) {
             String[] nodes = messageTemplate.split("\\.");
-            Instance instance = null;
+            Object instance = null;
             if ("path".equals(nodes[0])) {
-                instance = instanceFactory.defined(path);
+                instance = path;
             } else if ("instance".equals(nodes[0])) {
-                instance = this.instance;
+                instance = this.instance.asValue();
             } else if ("schema".equals(nodes[0])) {
-                instance = this.schema;
+                instance = this.schema.asValue();
             } else {
                 break;
             }
@@ -91,16 +91,12 @@ public class EngineViolation implements Violation {
             for (int depth = 0; depth < nodes.length; depth++) {
                 Integer index = getIndex(nodes[depth]);
                 if (Objects.nonNull(index)) {
-                    instance = instance.get(index);
+                    instance = getItem(instance, index);
                 } else {
-                    if (!instance.isObject()) {
-                        instance = instance.defined(new Pojo(instance.asValue())).get(nodes[depth]);
-                    } else {
-                        instance = instance.get(nodes[depth]);
-                    }
+                    instance = getValue(instance, nodes[depth]);
                 }
             }
-            alteredMessageTemplate = alteredMessageTemplate.replace(String.format("{%s}", messageTemplate), String.valueOf(instance.asValue()));
+            alteredMessageTemplate = alteredMessageTemplate.replace(String.format("{%s}", messageTemplate), String.valueOf(instance));
         }
         return alteredMessageTemplate;
     }
@@ -149,5 +145,65 @@ public class EngineViolation implements Violation {
     @Override
     public Instance getSchema() {
         return schema;
+    }
+
+    public static Object getItem(Object instance, Integer index) {
+        Object item = null;
+        if (nonNull(instance)) {
+            if (nonNull(index)) {
+                try {
+                    if (List.class.isInstance(instance)) {
+                        item = List.class.cast(instance).get(index);
+                    } else if (instance.getClass().isArray()) {
+                        item = Array.get(instance, index);
+                    }
+                } catch (IllegalArgumentException | IndexOutOfBoundsException cause) {
+                }
+            }
+        }
+        return item;
+    }
+
+    public static Object getValue(Object instance, String propertyName) {
+        Object property = null;
+        if (nonNull(instance)) {
+            if (Map.class.isInstance(instance)) {
+                property = Map.class.cast(instance).get(propertyName);
+            } else {
+                try {
+                    BeanInfo beanInfo = Introspector.getBeanInfo(instance.getClass(), Object.class);
+                    for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
+                        String name = propertyDescriptor.getName();
+                        if (nonNull(name) && name.equals(propertyName)) {
+                            if (Objects.nonNull(propertyDescriptor.getReadMethod()) &&
+                                    Modifier.isPublic(propertyDescriptor.getReadMethod().getModifiers()) &&
+                                    Objects.nonNull(propertyDescriptor.getName())) {
+                                try {
+                                    property = propertyDescriptor.getReadMethod().invoke(instance);
+                                } catch (IllegalAccessException | InvocationTargetException cause) {}
+                            }
+                        }
+                    }
+                    if (isNull(property)) {
+                        for (MethodDescriptor methodDescriptor : beanInfo.getMethodDescriptors()) {
+                            String name = methodDescriptor.getName();
+                            if (nonNull(name) && name.equals(propertyName)) {
+                                if (Objects.nonNull(methodDescriptor.getMethod()) &&
+                                        !Void.TYPE.equals(methodDescriptor.getMethod().getReturnType()) &&
+                                        methodDescriptor.getMethod().getParameterCount() == 0 &&
+                                        Modifier.isPublic(methodDescriptor.getMethod().getModifiers()) &&
+                                        Objects.nonNull(methodDescriptor.getName())) {
+                                    try {
+                                        property = methodDescriptor.getMethod().invoke(instance);
+                                    } catch (IllegalAccessException | InvocationTargetException cause) {}
+                                }
+                            }
+                        }
+                    }
+                } catch (IntrospectionException cause) {}
+            }
+
+        }
+        return property;
     }
 }

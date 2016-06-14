@@ -15,10 +15,10 @@
  */
 package no.thrums.validation.engine.keyword.object;
 
-import no.thrums.validation.engine.helper.number.NumberComparator;
+import no.thrums.instance.ri.helper.NumberComparator;
 import no.thrums.validation.keyword.KeywordValidator;
 import no.thrums.validation.keyword.KeywordValidatorContext;
-import no.thrums.validation.instance.Instance;
+import no.thrums.instance.Instance;
 import no.thrums.validation.keyword.Keyword;
 
 /**

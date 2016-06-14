@@ -15,7 +15,7 @@
  */
 package no.thrums.validation.keyword;
 
-import no.thrums.validation.instance.Instance;
+import no.thrums.instance.Instance;
 
 /**
  * @author Kristian Myrhaug

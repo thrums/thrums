@@ -19,7 +19,7 @@ import no.thrums.validation.engine.keyword.Helper;
 import no.thrums.validation.engine.keyword.Performer;
 import no.thrums.validation.engine.keyword.Utils;
 import no.thrums.validation.engine.keyword.any.Type;
-import no.thrums.validation.instance.Instance;
+import no.thrums.instance.Instance;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

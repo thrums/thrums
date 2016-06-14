@@ -59,6 +59,8 @@ limitations under the License.
 
     <modules>
         <module>thrums-configuration</module>
+        <module>thrums-difference</module>
+        <module>thrums-instance</module>
         <module>thrums-io</module>
         <module>thrums-jts</module>
         <module>thrums-loader</module>
@@ -75,6 +77,16 @@ limitations under the License.
             <dependency>
                 <groupId>no.thrums</groupId>
                 <artifactId>thrums-configuration</artifactId>
+                <version>1.0.2-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>no.thrums</groupId>
+                <artifactId>thrums-difference</artifactId>
+                <version>1.0.2-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>no.thrums</groupId>
+                <artifactId>thrums-instance</artifactId>
                 <version>1.0.2-SNAPSHOT</version>
             </dependency>
             <dependency>

@@ -16,7 +16,7 @@
 package no.thrums.validation.keyword;
 
 import no.thrums.validation.Violation;
-import no.thrums.validation.instance.Instance;
+import no.thrums.instance.Instance;
 
 import java.util.List;
 

@@ -16,7 +16,7 @@
 package no.thrums.validation.engine.keyword.any;
 
 import no.thrums.validation.keyword.KeywordValidatorContext;
-import no.thrums.validation.instance.Instance;
+import no.thrums.instance.Instance;
 import no.thrums.validation.keyword.Keyword;
 import no.thrums.validation.keyword.KeywordValidator;
 
@@ -42,7 +42,7 @@ public class Enum implements Keyword {
                 if (enumValues.isEmpty()) {
                     return null;
                 } else {
-                    return new EnumKeywordValidator(this, enumValues);
+                    return new EnumKeywordValidator(enumValues);
                 }
             } else {
                 throw new IllegalArgumentException("Keyword must be array");
@@ -53,11 +53,9 @@ public class Enum implements Keyword {
 
     private class EnumKeywordValidator implements KeywordValidator {
 
-        private final Keyword keyword;
         private final Set<Instance> enumValues;
 
-        private EnumKeywordValidator(Keyword keyword, Collection<Instance> enumValues) {
-            this.keyword = keyword;
+        private EnumKeywordValidator(Collection<Instance> enumValues) {
             this.enumValues = new HashSet<>(enumValues);
         }
 

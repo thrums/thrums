@@ -15,12 +15,13 @@
  */
 package no.thrums.validation.engine.keyword.number;
 
-import no.thrums.validation.engine.helper.number.NumberComparator;
-import no.thrums.validation.instance.Instance;
+import no.thrums.instance.Instance;
+import no.thrums.instance.ri.helper.NumberComparator;
 import no.thrums.validation.keyword.Keyword;
 import no.thrums.validation.keyword.KeywordValidator;
 import no.thrums.validation.keyword.KeywordValidatorContext;
-import no.thrums.validation.engine.helper.number.NumberRemainder;
+
+import static no.thrums.instance.ri.helper.NumberUtilities.remainder;
 
 /**
 * @author Kristian Myrhaug
@@ -28,7 +29,6 @@ import no.thrums.validation.engine.helper.number.NumberRemainder;
 */
 public class MultipleOf implements Keyword {
 
-    private static final NumberRemainder NUMBER_REMAINDER = new NumberRemainder();
     private static final NumberComparator NUMBER_COMPARATOR = new NumberComparator();
 
     @Override
@@ -56,7 +56,7 @@ public class MultipleOf implements Keyword {
         public void vaildate(KeywordValidatorContext context, Instance instance) {
             if (instance.isPresent()) {
                 if (instance.isNumber()) {
-                    if (NUMBER_COMPARATOR.compare(0, NUMBER_REMAINDER.remainder(instance.asNumber(), multipleOf)) != 0) {
+                    if (NUMBER_COMPARATOR.compare(0, remainder(instance.asNumber(), multipleOf)) != 0) {
                         context.addViolation("{no.thrums.validation.engine.keyword.number.MultipleOf.message}");
                     }
                 } else {

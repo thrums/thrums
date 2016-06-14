@@ -16,12 +16,13 @@
 package no.thrums.validation.engine.instance;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import no.thrums.instance.Instance;
+import no.thrums.instance.InstanceFactory;
+import no.thrums.instance.InstanceLoader;
+import no.thrums.instance.ri.RiInstanceFactory;
+import no.thrums.instance.ri.RiInstanceLoader;
 import no.thrums.mapper.Mapper;
 import no.thrums.mapper.jackson.JacksonMapper;
-import no.thrums.reflection.Bean;
-import no.thrums.validation.instance.Instance;
-import no.thrums.validation.instance.InstanceFactory;
-import no.thrums.validation.instance.InstanceLoader;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,8 +45,8 @@ public class InstanceTest {
     @Before
     public void before(){
         Mapper mapper = new JacksonMapper(new ObjectMapper());
-        instanceLoader = new EngineInstanceLoader(mapper);
-        instanceFactory = new EngineInstanceFactory(instanceLoader);
+        instanceLoader = new RiInstanceLoader(mapper);
+        instanceFactory = new RiInstanceFactory();
     }
 
     @Test
@@ -56,7 +57,7 @@ public class InstanceTest {
                 2,
                 new ArrayList<>(),
                 3,
-                new LinkedHashMap<String, Object>(),
+                new LinkedHashMap<>(),
                 new Pojo(null, null, null, null, null, null, null, null),
                 "four"
         ));
@@ -75,35 +76,6 @@ public class InstanceTest {
     }
 
     @Test
-    public void that_bean_is_writable() {
-        Pojo pojo = new Pojo(
-                new int[]{1, 2, 3},
-                true,
-                2,
-                new ArrayList<>(),
-                3,
-                new LinkedHashMap<String, Object>(),
-                new Pojo(null, null, null, null, null, null, null, null),
-                "four"
-        );
-        Map<String,Object> bean = new Bean(pojo);
-        Assert.assertTrue(pojo.getBoolean());
-        Assert.assertTrue((Boolean)bean.get("boolean"));
-
-        bean.put("boolean", false);
-        Assert.assertFalse((Boolean) bean.get("boolean"));
-        Assert.assertFalse(pojo.getBoolean());
-
-        /*bean.remove("boolean");
-        Assert.assertNull(bean.get("boolean"));
-        Assert.assertNull(pojo.getBoolean());
-
-        bean.put("boolean", true);
-        Assert.assertTrue(pojo.getBoolean());
-        Assert.assertTrue((Boolean) bean.get("boolean"));*/
-    }
-
-    @Test
     public void that_objects_are_equal() {
         Instance beanInstance = instanceFactory.defined(new Pojo(
                 new int[]{1, 2, 3},
@@ -111,7 +83,7 @@ public class InstanceTest {
                 2,
                 new ArrayList<>(),
                 3,
-                new LinkedHashMap<String, Object>(),
+                new LinkedHashMap<>(),
                 new Pojo(null, null, null, null, null, null, null, null),
                 "four"
         ));
@@ -138,7 +110,6 @@ public class InstanceTest {
         private Number integer;
         private List<Object> list;
         private Object _null;
-        private Object undefined;
         private Number number;
         private Map<String,Object> map;
         private Pojo pojo;
@@ -159,76 +130,36 @@ public class InstanceTest {
             return ints;
         }
 
-        public void setInts(int[] ints) {
-            this.ints = ints;
-        }
-
         public Boolean getBoolean() {
             return _boolean;
-        }
-
-        public void setBoolean(Boolean _boolean) {
-            this._boolean = _boolean;
         }
 
         public Number getInteger() {
             return integer;
         }
 
-        public void setInteger(Number integer) {
-            this.integer = integer;
-        }
-
         public List<Object> getList() {
             return list;
-        }
-
-        public void setList(List<Object> list) {
-            this.list = list;
         }
 
         public Object getNull() {
             return _null;
         }
 
-        public void setNull(Object _null) {
-            this._null = _null;
-        }
-
-        public void setUndefined(Object undefined) {
-            this.undefined = undefined;
-        }
-
         public Number getNumber() {
             return number;
-        }
-
-        public void setNumber(Number number) {
-            this.number = number;
         }
 
         public Map<String, Object> getMap() {
             return map;
         }
 
-        public void setMap(Map<String, Object> map) {
-            this.map = map;
-        }
-
         public Pojo getPojo() {
             return pojo;
         }
 
-        public void setPojo(Pojo pojo) {
-            this.pojo = pojo;
-        }
-
         public String getString() {
             return string;
-        }
-
-        public void setString(String string) {
-            this.string = string;
         }
 
         public int size() {

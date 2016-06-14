@@ -28,10 +28,6 @@
         </dependency>
         <dependency>
             <groupId>no.thrums</groupId>
-            <artifactId>thrums-reflection</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>no.thrums</groupId>
             <artifactId>thrums-validation</artifactId>
         </dependency>
 

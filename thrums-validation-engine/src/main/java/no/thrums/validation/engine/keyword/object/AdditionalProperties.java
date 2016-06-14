@@ -15,8 +15,8 @@
  */
 package no.thrums.validation.engine.keyword.object;
 
-import no.thrums.validation.engine.helper.RegExp;
-import no.thrums.validation.instance.Instance;
+import no.thrums.instance.ri.helper.RegExp;
+import no.thrums.instance.Instance;
 import no.thrums.validation.keyword.Keyword;
 import no.thrums.validation.keyword.KeywordValidator;
 import no.thrums.validation.keyword.KeywordValidatorContext;
@@ -43,7 +43,7 @@ public class AdditionalProperties implements Keyword {
         if (keyword.isPresent()) {
             if (keyword.isBoolean()) {
                 if (keyword.asBoolean()) {
-                    additionalProperties = schema.defined(new LinkedHashMap<>());
+                    additionalProperties = schema.getInstanceFactory().defined(schema, new LinkedHashMap<>());
                 } else {
                     additionalProperties = null;
                 }
@@ -53,7 +53,7 @@ public class AdditionalProperties implements Keyword {
                 throw new IllegalArgumentException("additionalProperties must be boolean or object");
             }
         } else {
-            additionalProperties = schema.defined(new LinkedHashMap<>());
+            additionalProperties = schema.getInstanceFactory().defined(schema, new LinkedHashMap<>());
         }
         keyword = schema.get(KEYWORD_PROPERTIES);
         Map<String,Instance> properties = null;

@@ -16,8 +16,7 @@
 package no.thrums.validation.engine;
 
 import no.thrums.validation.engine.keyword.any.*;
-import no.thrums.validation.engine.keyword.object.AdditionalProperties;
-import no.thrums.validation.engine.keyword.object.MinProperties;
+import no.thrums.validation.engine.keyword.object.*;
 import no.thrums.validation.Violation;
 import no.thrums.validation.engine.keyword.array.AdditionalItems;
 import no.thrums.validation.engine.keyword.array.MaxItems;
@@ -26,9 +25,6 @@ import no.thrums.validation.engine.keyword.array.UniqueItems;
 import no.thrums.validation.engine.keyword.number.Maximum;
 import no.thrums.validation.engine.keyword.number.Minimum;
 import no.thrums.validation.engine.keyword.number.MultipleOf;
-import no.thrums.validation.engine.keyword.object.Dependencies;
-import no.thrums.validation.engine.keyword.object.MaxProperties;
-import no.thrums.validation.engine.keyword.object.Required;
 import no.thrums.validation.engine.keyword.string.MaxLength;
 import no.thrums.validation.engine.keyword.string.MinLength;
 import no.thrums.validation.engine.keyword.string.Pattern;
@@ -38,7 +34,7 @@ import no.thrums.validation.engine.keyword.string.format.Hostname;
 import no.thrums.validation.engine.keyword.string.format.Ipv4;
 import no.thrums.validation.engine.keyword.string.format.Ipv6;
 import no.thrums.validation.engine.keyword.string.format.Uri;
-import no.thrums.validation.instance.Instance;
+import no.thrums.instance.Instance;
 import no.thrums.validation.engine.keyword.Helper;
 import org.junit.Assert;
 import org.junit.Before;
@@ -74,6 +70,7 @@ public class ValidationTest {
                 new MultipleOf(),
                 new AdditionalProperties(),
                 new Dependencies(),
+                new Id(),
                 new MaxProperties(),
                 new MinProperties(),
                 new Required(),

@@ -15,9 +15,9 @@
  */
 package no.thrums.validation.engine.keyword.string;
 
-import no.thrums.validation.engine.helper.RegExp;
+import no.thrums.instance.ri.helper.RegExp;
 import no.thrums.validation.keyword.KeywordValidatorContext;
-import no.thrums.validation.instance.Instance;
+import no.thrums.instance.Instance;
 import no.thrums.validation.keyword.Keyword;
 import no.thrums.validation.keyword.KeywordValidator;
 

@@ -17,7 +17,10 @@
 
     <dependencies>
         <!-- Internal artifacts -->
-
+        <dependency>
+            <groupId>no.thrums</groupId>
+            <artifactId>thrums-instance</artifactId>
+        </dependency>
         <!-- Third-party -->
         <dependency>
             <groupId>javax.inject</groupId>

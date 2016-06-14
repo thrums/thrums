@@ -15,7 +15,7 @@
  */
 package no.thrums.validation;
 
-import no.thrums.validation.instance.Instance;
+import no.thrums.instance.Instance;
 
 import java.util.List;
 

@@ -5,14 +5,16 @@ import no.thrums.mapper.Mapper;
 import no.thrums.mapper.jackson.JacksonMapper;
 import no.thrums.validation.Violation;
 import no.thrums.validation.engine.EngineValidator;
-import no.thrums.validation.engine.instance.EngineInstanceFactory;
-import no.thrums.validation.engine.instance.EngineInstanceLoader;
-import no.thrums.validation.engine.path.EnginePathFactory;
-import no.thrums.validation.instance.Instance;
-import no.thrums.validation.instance.InstanceLoader;
-import no.thrums.validation.path.PathFactory;
+import no.thrums.instance.ri.RiInstanceFactory;
+import no.thrums.instance.ri.RiInstanceLoader;
+import no.thrums.validation.engine.instance.EngineReferenceResolver;
+import no.thrums.instance.ri.path.RiPathFactory;
+import no.thrums.instance.Instance;
+import no.thrums.instance.InstanceLoader;
+import no.thrums.validation.instance.ReferenceResolver;
+import no.thrums.instance.path.PathFactory;
 import no.thrums.validation.Validator;
-import no.thrums.validation.instance.InstanceFactory;
+import no.thrums.instance.InstanceFactory;
 import no.thrums.validation.keyword.Keyword;
 
 import java.net.URI;
@@ -26,24 +28,26 @@ public class Helper {
 
     private Mapper mapper;
     private InstanceLoader instanceLoader;
+    private ReferenceResolver referenceResolver;
     private InstanceFactory instanceFactory;
     private PathFactory pathFactory;
     private Validator validator;
 
     public Helper(Keyword... keywords) {
         mapper = new JacksonMapper(new ObjectMapper());
-        instanceLoader = new EngineInstanceLoader(mapper);
-        instanceFactory = new EngineInstanceFactory(instanceLoader);
-        pathFactory = new EnginePathFactory();
-        this.validator = new EngineValidator(instanceFactory, pathFactory, keywords);
+        instanceLoader = new RiInstanceLoader(mapper);
+        referenceResolver = new EngineReferenceResolver();
+        instanceFactory = new RiInstanceFactory();
+        pathFactory = new RiPathFactory();
+        this.validator = new EngineValidator(instanceFactory, referenceResolver, pathFactory, keywords);
     }
 
     public Mapper getMapper() {
         return mapper;
     }
 
-    public InstanceLoader getInstanceLoader() {
-        return instanceLoader;
+    public ReferenceResolver getReferenceResolver() {
+        return referenceResolver;
     }
 
     public InstanceFactory getInstanceFactory() {

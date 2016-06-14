@@ -15,20 +15,21 @@
  */
 package no.thrums.validation.engine;
 
+import no.thrums.instance.Instance;
+import no.thrums.instance.InstanceFactory;
+import no.thrums.validation.Validator;
 import no.thrums.validation.Violation;
+import no.thrums.validation.engine.instance.InstanceInvocationHandler;
+import no.thrums.validation.instance.ReferenceResolver;
+import no.thrums.validation.keyword.Keyword;
 import no.thrums.validation.keyword.KeywordValidator;
 import no.thrums.validation.keyword.KeywordValidatorContext;
-import no.thrums.validation.path.PathFactory;
-import no.thrums.validation.Validator;
-import no.thrums.validation.instance.Instance;
-import no.thrums.validation.instance.InstanceFactory;
-import no.thrums.validation.keyword.Keyword;
-import no.thrums.validation.path.Path;
+import no.thrums.instance.path.Path;
+import no.thrums.instance.path.PathFactory;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static java.util.Objects.nonNull;
 
@@ -39,18 +40,21 @@ import static java.util.Objects.nonNull;
 public class EngineValidator implements Validator {
 
     private final InstanceFactory instanceFactory;
+    private final ReferenceResolver referenceResolver;
     private final PathFactory pathFactory;
     private final Keyword[] keywords;
 
     @Inject
-    public EngineValidator(InstanceFactory instanceFactory, PathFactory pathFactory, List<Keyword> keywords) {
+    public EngineValidator(InstanceFactory instanceFactory, ReferenceResolver referenceResolver, PathFactory pathFactory, List<Keyword> keywords) {
         this.instanceFactory = instanceFactory;
+        this.referenceResolver = referenceResolver;
         this.pathFactory = pathFactory;
         this.keywords = nonNull(keywords) ? keywords.toArray(new Keyword[keywords.size()]) : null;
     }
 
-    public EngineValidator(InstanceFactory instanceFactory, PathFactory pathFactory, Keyword... keywords) {
+    public EngineValidator(InstanceFactory instanceFactory, ReferenceResolver referenceResolver, PathFactory pathFactory, Keyword... keywords) {
         this.instanceFactory = instanceFactory;
+        this.referenceResolver = referenceResolver;
         this.pathFactory = pathFactory;
         this.keywords = keywords;
     }
@@ -81,7 +85,7 @@ public class EngineValidator implements Validator {
         private final List<Violation> violations;
 
         private KeywordValidatorContextImpl(Instance schema, Instance instance, Path path, List<KeywordValidatorContextImpl> validations, List<Violation> violations) {
-            this.schema = schema;
+            this.schema = InstanceInvocationHandler.createProxy(referenceResolver, schema);
             this.instance = instance;
             this.path = path;
             this.validations = validations;
@@ -95,12 +99,12 @@ public class EngineValidator implements Validator {
 
         @Override
         public void addViolation(String key, String message) {
-            violations.add(new EngineViolation(path.push(key), message, instance, schema, instanceFactory));
+            violations.add(new EngineViolation(path.withKey(key), message, instance, schema, instanceFactory));
         }
 
         @Override
         public void addViolation(Integer index, String message) {
-            violations.add(new EngineViolation(path.push(index), message, instance, schema, instanceFactory));
+            violations.add(new EngineViolation(path.withIndex(index), message, instance, schema, instanceFactory));
         }
 
         @Override
@@ -110,12 +114,12 @@ public class EngineValidator implements Validator {
 
         @Override
         public void validate(String key, Instance schema) {
-            validations.add(new KeywordValidatorContextImpl(schema, instance.get(key), path.push(key), validations, violations));
+            validations.add(new KeywordValidatorContextImpl(schema, instance.get(key), path.withKey(key), validations, violations));
         }
 
         @Override
         public void validate(Integer index, Instance schema) {
-            validations.add(new KeywordValidatorContextImpl(schema, instance.get(index), path.push(index), validations, violations));
+            validations.add(new KeywordValidatorContextImpl(schema, instance.get(index), path.withIndex(index), validations, violations));
         }
 
         @Override

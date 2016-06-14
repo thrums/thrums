@@ -15,7 +15,7 @@
  */
 package no.thrums.validation.engine.keyword.any;
 
-import no.thrums.validation.instance.Instance;
+import no.thrums.instance.Instance;
 import no.thrums.validation.keyword.KeywordValidator;
 import no.thrums.validation.keyword.KeywordValidatorContext;
 import no.thrums.validation.keyword.Keyword;

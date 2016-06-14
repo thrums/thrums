@@ -15,7 +15,7 @@
  */
 package no.thrums.validation.engine.keyword.string.format;
 
-import no.thrums.validation.instance.Instance;
+import no.thrums.instance.Instance;
 import no.thrums.validation.engine.keyword.Helper;
 import org.junit.Assert;
 import org.junit.Before;

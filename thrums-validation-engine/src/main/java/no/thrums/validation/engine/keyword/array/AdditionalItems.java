@@ -15,7 +15,7 @@
  */
 package no.thrums.validation.engine.keyword.array;
 
-import no.thrums.validation.instance.Instance;
+import no.thrums.instance.Instance;
 import no.thrums.validation.keyword.KeywordValidator;
 import no.thrums.validation.keyword.KeywordValidatorContext;
 import no.thrums.validation.keyword.Keyword;
@@ -59,7 +59,7 @@ public class AdditionalItems implements Keyword {
         if (keyword.isPresent()) {
             if (keyword.isBoolean()) {
                 if (keyword.asBoolean()) {
-                    additionalItems = schema.defined(new LinkedHashMap<>());
+                    additionalItems = schema.getInstanceFactory().defined(schema, new LinkedHashMap<>());
                 } else {
                     additionalItems = null;
                 }
@@ -69,7 +69,7 @@ public class AdditionalItems implements Keyword {
                 throw new IllegalArgumentException("additionalItems must be boolean or object");
             }
         } else {
-            additionalItems = schema.defined(new LinkedHashMap<>());
+            additionalItems = schema.getInstanceFactory().defined(schema, new LinkedHashMap<>());
         }
         return new AdditionalItemsKeywordValidator(additionalItems, items);
     }
