@@ -15,8 +15,10 @@
  */
 package no.thrums.instance.ri.path;
 
+import no.thrums.instance.path.NodeFactory;
 import no.thrums.instance.path.PathFactory;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Provider;
 
@@ -28,9 +30,16 @@ import javax.inject.Provider;
 @Named("no.thrums.instance.ri.path.RiPathFactoryProvider")
 public class RiPathFactoryProvider implements Provider<PathFactory> {
 
+    private NodeFactory nodeFactory;
+
+    @Inject
+    public RiPathFactoryProvider(NodeFactory nodeFactory) {
+        this.nodeFactory = nodeFactory;
+    }
+
     @Named("no.thrums.instance.ri.path.RiPathFactory")
     @Override
     public PathFactory get() {
-        return new RiPathFactory();
+        return new RiPathFactory(nodeFactory);
     }
 }

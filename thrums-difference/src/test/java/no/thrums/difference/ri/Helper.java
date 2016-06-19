@@ -6,9 +6,11 @@ import no.thrums.difference.Difference;
 import no.thrums.instance.Instance;
 import no.thrums.instance.InstanceFactory;
 import no.thrums.instance.InstanceLoader;
+import no.thrums.instance.path.NodeFactory;
 import no.thrums.instance.path.PathFactory;
 import no.thrums.instance.ri.RiInstanceFactory;
 import no.thrums.instance.ri.RiInstanceLoader;
+import no.thrums.instance.ri.path.RiNodeFactory;
 import no.thrums.instance.ri.path.RiPathFactory;
 import no.thrums.mapper.Mapper;
 import no.thrums.mapper.jackson.JacksonMapper;
@@ -27,6 +29,7 @@ public class Helper {
     private Mapper mapper;
     private InstanceLoader instanceLoader;
     private InstanceFactory instanceFactory;
+    private NodeFactory nodeFactory;
     private PathFactory pathFactory;
     private Comparator comparator;
 
@@ -34,7 +37,8 @@ public class Helper {
         mapper = new JacksonMapper(new ObjectMapper());
         instanceLoader = new RiInstanceLoader(mapper);
         instanceFactory = new RiInstanceFactory();
-        pathFactory = new RiPathFactory();
+        nodeFactory = new RiNodeFactory();
+        pathFactory = new RiPathFactory(nodeFactory);
         this.comparator = new RiComparator(pathFactory);
     }
 
@@ -44,6 +48,10 @@ public class Helper {
 
     public InstanceFactory getInstanceFactory() {
         return instanceFactory;
+    }
+
+    public NodeFactory getNodeFactory() {
+        return nodeFactory;
     }
 
     public PathFactory getPathFactory() {

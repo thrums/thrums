@@ -1,6 +1,8 @@
 package no.thrums.validation.engine.keyword;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import no.thrums.instance.path.NodeFactory;
+import no.thrums.instance.ri.path.RiNodeFactory;
 import no.thrums.mapper.Mapper;
 import no.thrums.mapper.jackson.JacksonMapper;
 import no.thrums.validation.Violation;
@@ -30,6 +32,7 @@ public class Helper {
     private InstanceLoader instanceLoader;
     private ReferenceResolver referenceResolver;
     private InstanceFactory instanceFactory;
+    private NodeFactory nodeFactory;
     private PathFactory pathFactory;
     private Validator validator;
 
@@ -38,7 +41,8 @@ public class Helper {
         instanceLoader = new RiInstanceLoader(mapper);
         referenceResolver = new EngineReferenceResolver();
         instanceFactory = new RiInstanceFactory();
-        pathFactory = new RiPathFactory();
+        nodeFactory = new RiNodeFactory();
+        pathFactory = new RiPathFactory(nodeFactory);
         this.validator = new EngineValidator(instanceFactory, referenceResolver, pathFactory, keywords);
     }
 

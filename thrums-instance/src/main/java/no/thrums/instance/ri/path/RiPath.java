@@ -16,6 +16,7 @@
 package no.thrums.instance.ri.path;
 
 import no.thrums.instance.path.Node;
+import no.thrums.instance.path.NodeFactory;
 import no.thrums.instance.path.Path;
 
 import java.util.*;
@@ -28,9 +29,12 @@ import static java.util.Objects.requireNonNull;
 */
 public class RiPath implements Path {
 
+    private NodeFactory nodeFactory;
+
     private List<Node> nodes = new ArrayList<>();
 
-    public RiPath(Node... nodes) {
+    public RiPath(NodeFactory nodeFactory, Node... nodes) {
+        this.nodeFactory = nodeFactory;
         for(Node node : nodes) {
             this.nodes.add(node);
         }
@@ -164,21 +168,21 @@ public class RiPath implements Path {
     @Override
     public Path withKey(String key) {
         Node[] nodes = getNodes(this.nodes.size() + 1);
-        nodes[nodes.length - 1] = new KeyNode(key);
-        return new RiPath(nodes);
+        nodes[nodes.length - 1] = nodeFactory.createKey(key);
+        return new RiPath(nodeFactory, nodes);
     }
 
     @Override
     public Path withIndex(Integer index) {
         Node[] nodes = getNodes(this.nodes.size() + 1);
-        nodes[nodes.length - 1] = new IndexNode(index);
-        return new RiPath(nodes);
+        nodes[nodes.length - 1] = nodeFactory.createIndex(index);
+        return new RiPath(nodeFactory, nodes);
     }
 
     @Override
     public Path pop() {
         Node[] nodes = getNodes(this.nodes.size() - 1);
-        return new RiPath(nodes);
+        return new RiPath(nodeFactory, nodes);
     }
 
     @Override
@@ -188,6 +192,10 @@ public class RiPath implements Path {
             stringBuilder.append(node.toString());
         }
         return stringBuilder.toString();
+    }
+
+    public NodeFactory getNodeFactory() {
+        return nodeFactory;
     }
 
     private Node[] getNodes(int length) {
@@ -200,59 +208,4 @@ public class RiPath implements Path {
         return nodes;
     }
 
-    /**
-     * @author Kristian Myrhaug
-     * @since 2015-02-24
-     */
-    public static class KeyNode implements Node<String> {
-
-        private String value;
-
-        public KeyNode(String value) {
-            this.value = requireNonNull(value, "May not be null: value");
-        }
-
-        @Override
-        public Type getType() {
-            return Type.KEY;
-        }
-
-        @Override
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return "." + getValue();
-        }
-    }
-
-    /**
-    * @author Kristian Myrhaug
-    * @since 2015-02-24
-    */
-    public static class IndexNode implements Node<Integer> {
-
-        private Integer value;
-
-        public IndexNode(Integer value) {
-            this.value = requireNonNull(value, "May not be null: value");
-        }
-
-        @Override
-        public Type getType() {
-            return Type.INDEX;
-        }
-
-        @Override
-        public Integer getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return "[" + String.valueOf(getValue()) + ']';
-        }
-    }
 }

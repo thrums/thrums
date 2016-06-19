@@ -15,31 +15,27 @@
  */
 package no.thrums.instance.ri.path;
 
+import no.thrums.instance.path.Node;
 import no.thrums.instance.path.NodeFactory;
-import no.thrums.instance.path.Path;
-import no.thrums.instance.path.PathFactory;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
  * @author Kristian Myrhaug
  * @since 2015-02-16
  */
-@Named("no.thrums.instance.ri.path.RiPathFactory")
-public class RiPathFactory implements PathFactory {
+@Named("no.thrums.instance.ri.path.RiNodeFactory")
+public class RiNodeFactory implements NodeFactory {
 
-    private NodeFactory nodeFactory;
-
-    @Inject
-    public RiPathFactory(NodeFactory nodeFactory) {
-        this.nodeFactory = nodeFactory;
-    }
-
-    @Named("no.thrums.instance.ri.path.Path")
+    @Named("no.thrums.instance.ri.path.RiKeyNode")
     @Override
-    public Path root() {
-        return new RiPath(nodeFactory);
+    public Node createKey(String key) {
+        return new RiKeyNode(key);
     }
 
+    @Named("no.thrums.instance.ri.path.RiIndexNode")
+    @Override
+    public Node createIndex(Integer index) {
+        return new RiIndexNode(index);
+    }
 }
