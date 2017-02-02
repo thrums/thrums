@@ -1,3 +1,18 @@
+/**
+ Copyright 2014-2017 Kristian Myrhaug
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 package no.thrums.difference.ri;
 
 import no.thrums.difference.Comparator;
@@ -41,10 +56,13 @@ public class RiComparator implements Comparator {
                     Objects.equals(first.isUndefined(), second.isUndefined()) &&
                     Objects.equals(first.isNumber(), second.isNumber()) &&
                     Objects.equals(first.isObject(), second.isObject()) &&
-                    Objects.equals(first.isString(), second.isString())) {
-                if (first.isNumber() && NUMBER_COMPARATOR.compare(first.asNumber(), second.asNumber()) != 0) {
-                    addParent(differences, difference);
-                    differences.add(difference);
+                    Objects.equals(first.isString(), second.isString()) &&
+                    Objects.equals(first.isEnum(), second.isEnum())) {
+                if (first.isNumber()) {
+                    if (NUMBER_COMPARATOR.compare(first.asNumber(), second.asNumber()) != 0) {
+                        addParent(differences, difference);
+                        differences.add(difference);
+                    }
                 } else if (first.isObject()) {
                     Set<String> keySet = keys(first);
                     keySet.addAll(second.keys());

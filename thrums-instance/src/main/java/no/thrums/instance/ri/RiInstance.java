@@ -1,5 +1,5 @@
 /**
- Copyright 2014-2016 Kristian Myrhaug
+ Copyright 2014-2017 Kristian Myrhaug
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -58,6 +58,11 @@ public abstract class RiInstance implements Instance {
 
     @Override
     public boolean isIntegral() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnum() {
         return false;
     }
 
@@ -132,6 +137,11 @@ public abstract class RiInstance implements Instance {
     }
 
     @Override
+    public Enum asEnum() {
+        return null;
+    }
+
+    @Override
     public Number asNumber() {
         return null;
     }
@@ -193,7 +203,8 @@ public abstract class RiInstance implements Instance {
                 Objects.equals(isUndefined(), other.isUndefined()) &&
                 Objects.equals(isNumber(), other.isNumber()) &&
                 Objects.equals(isObject(), other.isObject()) &&
-                Objects.equals(isString(), other.isString())) {
+                Objects.equals(isString(), other.isString()) &&
+                Objects.equals(isEnum(), other.isEnum())) {
             if (isNumber()) {
                 return NUMBER_COMPARATOR.compare(asNumber(), other.asNumber()) == 0;
             } else if (isObject()) {

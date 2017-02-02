@@ -20,26 +20,28 @@ import no.thrums.instance.InstanceFactory;
 
 import java.util.Objects;
 
+import static java.util.Objects.nonNull;
+
 /**
  * @author Kristian Myrhaug
  * @since 2015-02-23
  */
-public class BooleanInstance extends RiInstance {
+public class EnumInstance<T extends Enum<T>> extends RiInstance {
 
-    private final Boolean value;
+    private final Enum<T> value;
 
-    public BooleanInstance(InstanceFactory instanceFactory, Instance parent, Boolean value) {
+    public EnumInstance(InstanceFactory instanceFactory, Instance parent, Enum<T> value) {
         super(instanceFactory, parent);
         this.value = Objects.requireNonNull(value, "Third argument may not be null");
     }
 
     @Override
-    public boolean isBoolean() {
+    public boolean isEnum() {
         return true;
     }
 
     @Override
-    public Boolean asBoolean() {
+    public Enum<T> asEnum() {
         return value;
     }
 

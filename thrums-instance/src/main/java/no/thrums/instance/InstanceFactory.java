@@ -1,5 +1,5 @@
 /**
- Copyright 2014-2016 Kristian Myrhaug
+ Copyright 2014-2017 Kristian Myrhaug
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ public interface InstanceFactory {
     Instance createArray(Instance parent, Object[] value);
     Instance createArrayFromList(Instance parent, List<Object> value);
     Instance createBoolean(Instance parent, Boolean value);
+    Instance createJavaEnum(Instance parent, Enum value);
     Instance createNull(Instance parent);
     Instance createNumber(Instance parent, Number number);
     Instance createObject(Instance parent, Object value);

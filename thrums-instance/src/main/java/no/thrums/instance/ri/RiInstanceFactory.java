@@ -1,5 +1,5 @@
 /**
- Copyright 2014-2016 Kristian Myrhaug
+ Copyright 2014-2017 Kristian Myrhaug
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -22,8 +22,6 @@ import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 
 /**
  * @author Kristian Myrhaug
@@ -41,10 +39,12 @@ public class RiInstanceFactory implements InstanceFactory {
             return createArrayFromList(parent, (List<Object>)object);
         } else if (object instanceof Boolean) {
             return createBoolean(parent, (Boolean)object);
+        } else if (object instanceof Enum){
+            return createJavaEnum(parent, (Enum)object);
         } else if (object instanceof Number) {
             return createNumber(parent, (Number)object);
         } else if (object instanceof Map) {
-            return createObjectFromMap(parent, (Map<String,Object>)object);
+            return createObjectFromMap(parent, (Map<String, Object>) object);
         } else if (object instanceof String) {
             return createString(parent, (String)object);
         } else if (object.getClass().isArray()) {
@@ -88,6 +88,11 @@ public class RiInstanceFactory implements InstanceFactory {
     @Override
     public Instance createBoolean(Instance parent, Boolean value) {
         return new BooleanInstance(this, parent, value);
+    }
+
+    @Override
+    public Instance createJavaEnum(Instance parent, Enum value) {
+        return new EnumInstance(this, parent, value);
     }
 
     @Override

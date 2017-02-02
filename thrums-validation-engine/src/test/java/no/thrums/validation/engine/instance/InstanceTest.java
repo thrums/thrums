@@ -1,5 +1,5 @@
 /**
- Copyright 2014-2016 Kristian Myrhaug
+ Copyright 2014-2017 Kristian Myrhaug
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  */
 package no.thrums.validation.engine.instance;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import no.thrums.instance.Instance;
 import no.thrums.instance.InstanceFactory;
@@ -28,10 +30,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Kristian Myrhaug
@@ -39,12 +38,13 @@ import java.util.Map;
  */
 public class InstanceTest {
 
+    private Mapper mapper;
     private InstanceLoader instanceLoader;
     private InstanceFactory instanceFactory;
 
     @Before
     public void before(){
-        Mapper mapper = new JacksonMapper(new ObjectMapper());
+        mapper = new JacksonMapper(new ObjectMapper());
         instanceLoader = new RiInstanceLoader(mapper);
         instanceFactory = new RiInstanceFactory();
     }
@@ -58,9 +58,9 @@ public class InstanceTest {
                 new ArrayList<>(),
                 3,
                 new LinkedHashMap<>(),
-                new Pojo(null, null, null, null, null, null, null, null),
-                "four"
-        ));
+                new Pojo(null, null, null, null, null, null, null, null, null),
+                "four",
+                SomeEnum.one));
         Assert.assertTrue(instance.isObject());
         Assert.assertTrue(instance.get("ints").isArray());
         Assert.assertTrue(instance.get("boolean").isBoolean());
@@ -72,6 +72,7 @@ public class InstanceTest {
         Assert.assertTrue(instance.get("map").isObject());
         Assert.assertTrue(instance.get("pojo").isObject());
         Assert.assertTrue(instance.get("string").isString());
+        Assert.assertTrue(instance.get("enum").isEnum());
         Assert.assertTrue(instance.get("size").isUndefined());
     }
 
@@ -84,26 +85,31 @@ public class InstanceTest {
                 new ArrayList<>(),
                 3,
                 new LinkedHashMap<>(),
-                new Pojo(null, null, null, null, null, null, null, null),
-                "four"
-        ));
-        Instance mapInstance = instanceLoader.loadReader(instanceFactory, new StringReader(
-                "{\"ints\":[1, 2, 3],\"boolean\":true,\"integer\":2,\"list\":[],\"number\":3,\"map\":{},\"pojo\":{},\"string\":\"four\"}"
-        ));
+                new Pojo(null, null, null, null, null, null, null, null, null),
+                "four",
+                SomeEnum.one));
+        Instance mapInstance = instanceFactory.defined(mapper.read(new StringReader(
+                "{\"ints\":[1, 2, 3],\"boolean\":true,\"integer\":2,\"list\":[],\"number\":3,\"map\":{},\"pojo\":{},\"string\":\"four\",\"enum\":\"one\"}"
+        ), Pojo.class));
         Assert.assertEquals(beanInstance, mapInstance);
 
         mapInstance = instanceLoader.loadReader(instanceFactory, new StringReader(
-                "{\"ints\":[1, 2, 3],\"boolean\":true,\"integer\":2,\"list\":[],\"number\":3,\"map\":{},\"pojo\":{\"hi\":\"hello\"},\"string\":\"four\"}"
+                "{\"ints\":[1, 2, 3],\"boolean\":true,\"integer\":2,\"list\":[],\"number\":3,\"map\":{},\"pojo\":{},\"string\":\"four\",\"enum\":\"one\"}"
         ));
         Assert.assertNotEquals(beanInstance, mapInstance);
 
         mapInstance = instanceLoader.loadReader(instanceFactory, new StringReader(
-                "{\"ints\":[1, 2, 3],\"boolean\":true,\"integer\":2,\"list\":[],\"number\":3,\"map\":{\"hi\":\"hello\"},\"pojo\":{},\"string\":\"four\"}"
+                "{\"ints\":[1, 2, 3],\"boolean\":true,\"integer\":2,\"list\":[],\"number\":3,\"map\":{},\"pojo\":{\"hi\":\"hello\"},\"string\":\"four\",\"enum\":\"one\"}"
+        ));
+        Assert.assertNotEquals(beanInstance, mapInstance);
+
+        mapInstance = instanceLoader.loadReader(instanceFactory, new StringReader(
+                "{\"ints\":[1, 2, 3],\"boolean\":true,\"integer\":2,\"list\":[],\"number\":3,\"map\":{\"hi\":\"hello\"},\"pojo\":{},\"string\":\"four\",\"enum\":\"one\"}"
         ));
         Assert.assertNotEquals(beanInstance, mapInstance);
     }
 
-    public class Pojo {
+    public static class Pojo {
 
         private int[] ints;
         private Boolean _boolean;
@@ -114,8 +120,11 @@ public class InstanceTest {
         private Map<String,Object> map;
         private Pojo pojo;
         private String string;
+        private SomeEnum _enum;
 
-        public Pojo(int[] ints, Boolean _boolean, Number integer, List<Object> list, Number number, Map<String, Object> map, Pojo pojo, String string) {
+        private Pojo() {}
+
+        public Pojo(int[] ints, Boolean _boolean, Number integer, List<Object> list, Number number, Map<String, Object> map, Pojo pojo, String string, SomeEnum _enum) {
             this.ints = ints;
             this._boolean = _boolean;
             this.integer = integer;
@@ -124,6 +133,7 @@ public class InstanceTest {
             this.map = map;
             this.pojo = pojo;
             this.string = string;
+            this._enum = _enum;
         }
 
         public int[] getInts() {
@@ -132,6 +142,10 @@ public class InstanceTest {
 
         public Boolean getBoolean() {
             return _boolean;
+        }
+
+        public void setBoolean(Boolean _boolean) {
+            this._boolean = _boolean;
         }
 
         public Number getInteger() {
@@ -162,8 +176,33 @@ public class InstanceTest {
             return string;
         }
 
+        public SomeEnum getEnum() {
+            return _enum;
+        }
+
+        public void setEnum(SomeEnum _enum) {
+            this._enum = _enum;
+        }
+
         public int size() {
             return 9;
         }
+    }
+
+    public enum SomeEnum {
+        one,
+        teo,
+        three;
+
+        @JsonCreator
+        public static SomeEnum forValue(String value) {
+            return Arrays.stream(values()).filter(someEnum -> someEnum.name().equals(value)).findFirst().orElse(null);
+        }
+
+        @JsonValue
+        public String toValue() {
+            return this.name();
+        }
+
     }
 }
